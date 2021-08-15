@@ -1,21 +1,20 @@
 import 'package:edir_frontend/presentation/core/signin_and_register_form.dart';
 import 'package:flutter/material.dart';
 
-class SignInForm extends SignInAndRegisterForm {
-  @override
-  Widget get formWidget => SignIn(
+//RegisterForm implements formWidget (Returns 'Register' Widget.)
+class RegisterForm extends SignInAndRegisterForm {
+  Widget get formWidget => Register(
         raisedButtonStyle: raisedButtonStyle,
         fontSize: fontSize,
       );
 }
 
-class SignIn extends StatelessWidget {
-  const SignIn(
+class Register extends StatelessWidget {
+  const Register(
       {Key? key, required this.raisedButtonStyle, required this.fontSize})
       : super(key: key);
   final ButtonStyle raisedButtonStyle;
   final double fontSize;
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -34,12 +33,9 @@ class SignIn extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: Colors.amber[300],
-                ),
-                labelText: 'Email or username',
-                labelStyle: TextStyle(color: Colors.white, fontSize: fontSize)),
+                isDense: true,
+                labelText: 'Full Name',
+                labelStyle: TextStyle(color: Colors.white)),
             autocorrect: false,
           ),
         ),
@@ -50,12 +46,35 @@ class SignIn extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: Colors.amber[300],
-                ),
-                labelText: 'Password',
-                labelStyle: TextStyle(color: Colors.white, fontSize: fontSize)),
+                isDense: true,
+                labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.white)),
+            autocorrect: false,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: TextFormField(
+            decoration: InputDecoration(
+                isDense: true,
+                labelText: 'Username',
+                labelStyle: TextStyle(color: Colors.white)),
+            autocorrect: false,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: TextFormField(
+            decoration: InputDecoration(
+                isDense: true,
+                labelText: 'Phone number',
+                labelStyle: TextStyle(color: Colors.white)),
             autocorrect: false,
             obscureText: true,
           ),
@@ -68,7 +87,7 @@ class SignIn extends StatelessWidget {
           child: ElevatedButton(
             style: raisedButtonStyle,
             onPressed: () {},
-            child: const Text('Sign in'),
+            child: const Text('Register'),
           ),
         ),
         SizedBox(
@@ -84,17 +103,17 @@ class SignIn extends StatelessWidget {
                   color: Colors.grey[200],
                 ),
                 label: const Text(
-                  'SIGN IN WITH GOOGLE',
+                  'SIGN UP WITH GOOGLE',
                   style: TextStyle(color: Colors.grey),
                 )),
             TextButton.icon(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.person_add,
+                  Icons.login,
                   color: Colors.grey[200],
                 ),
                 label: const Text(
-                  'REGISTER',
+                  'SIGN IN',
                   style: TextStyle(
                     color: Colors.grey,
                   ),
