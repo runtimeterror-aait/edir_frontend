@@ -1,3 +1,4 @@
+import 'package:edir_frontend/presentation/create_edir/create_edir_page.dart';
 import 'package:edir_frontend/presentation/register/register_page.dart';
 import 'package:edir_frontend/presentation/register/widgets/register_form.dart';
 import 'package:edir_frontend/presentation/sign_in/sign_in_page.dart';
@@ -27,7 +28,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: SplashPage(),
+      home: CreateEdirPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,

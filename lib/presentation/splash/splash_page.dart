@@ -26,14 +26,13 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-
-      //   title: Center(
-      //     child: Text(
-      //       "Welcome",
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "Welcome",
+          ),
+        ),
+      ),
       body: Column(
         children: <Widget>[
           Container(
@@ -43,7 +42,9 @@ class SplashPage extends StatelessWidget {
               items: this.items,
             ),
           ),
-          Image.asset(waveImage),
+          Image.asset(
+            waveImage,
+          ),
           Spacer(),
           SplashCard(),
         ],

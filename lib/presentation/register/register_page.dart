@@ -10,7 +10,10 @@ class RegisterPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Register"),
       ),
-      body: RegisterForm(),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+        child: RegisterForm(),
+      ),
     );
   }
 }

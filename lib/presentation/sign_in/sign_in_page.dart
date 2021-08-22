@@ -10,7 +10,10 @@ class SignInPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Sign in"),
       ),
-      body: SignInForm(),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+        child: SignInForm(),
+      ),
     );
   }
 }
