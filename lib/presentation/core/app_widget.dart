@@ -1,8 +1,8 @@
-import 'package:edir_frontend/presentation/create_edir/create_edir_page.dart';
-import 'package:edir_frontend/presentation/register/register_page.dart';
-import 'package:edir_frontend/presentation/register/widgets/register_form.dart';
-import 'package:edir_frontend/presentation/sign_in/sign_in_page.dart';
-import 'package:edir_frontend/presentation/splash/splash_page.dart';
+import 'package:edir/presentation/create_edir/create_edir_page.dart';
+import 'package:edir/presentation/register/register_page.dart';
+import 'package:edir/presentation/register/widgets/register_form.dart';
+import 'package:edir/presentation/sign_in/sign_in_page.dart';
+import 'package:edir/presentation/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:edir_frontend/presentation/splash/widgets/carousel_slide.dart';
-import 'package:edir_frontend/presentation/splash/widgets/splash_card.dart';
+import 'package:edir/presentation/splash/widgets/carousel_slide.dart';
+import 'package:edir/presentation/splash/widgets/splash_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

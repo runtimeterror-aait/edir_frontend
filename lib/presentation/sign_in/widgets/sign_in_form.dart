@@ -1,4 +1,4 @@
-import 'package:edir_frontend/presentation/core/signin_and_register_form.dart';
+import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:flutter/material.dart';
 
 class SignInForm extends StatelessWidget with SignInAndRegisterForm {

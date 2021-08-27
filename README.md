@@ -1,4 +1,4 @@
-# edir_frontend
+# edir
 
 A new Flutter project.
 

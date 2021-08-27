@@ -1,4 +1,4 @@
-package com.example.edir_frontend
+package com.example.edir
 
 import io.flutter.embedding.android.FlutterActivity
 
