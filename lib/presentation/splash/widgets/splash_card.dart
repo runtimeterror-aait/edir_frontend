@@ -13,7 +13,9 @@ class SplashCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(10),
+        ),
       ),
 
       // margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),

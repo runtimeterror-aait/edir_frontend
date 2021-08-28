@@ -11,6 +11,7 @@ class CreateEdirPage extends StatelessWidget {
         title: Text("Create Edir"),
         elevation: 0,
       ),
+      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           children: [
@@ -20,11 +21,9 @@ class CreateEdirPage extends StatelessWidget {
               margin: const EdgeInsets.only(top: 90),
               child: CreateEdirForm(),
             ),
-            Positioned(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset('assets/images/create_edir_wave.png'),
-              ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset('assets/images/create_edir_wave.png'),
             ),
           ],
         ),
