@@ -7,12 +7,16 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign in"),
-      ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-        child: SignInForm(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 80,
+            ),
+            SignInForm(),
+          ],
+        ),
       ),
     );
   }
