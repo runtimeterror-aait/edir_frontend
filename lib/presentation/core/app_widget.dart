@@ -1,3 +1,4 @@
+import 'package:edir/presentation/admin_manage_edir/admin_manage_edir_page.dart';
 import 'package:edir/presentation/create_edir/create_edir_page.dart';
 import 'package:edir/presentation/dashboard/dashboard_page.dart';
 import 'package:edir/presentation/register/register_page.dart';
@@ -35,7 +36,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: RegisterPage(),
+      home: AdminManageEdirPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,
