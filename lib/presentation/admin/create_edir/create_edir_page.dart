@@ -1,4 +1,4 @@
-import 'package:edir/presentation/create_edir/widgets/create_edir_form.dart';
+import 'package:edir/presentation/admin/create_edir/widgets/create_edir_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateEdirPage extends StatelessWidget {

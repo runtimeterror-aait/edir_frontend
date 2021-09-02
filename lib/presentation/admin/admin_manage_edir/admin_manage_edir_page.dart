@@ -1,6 +1,6 @@
-import 'package:edir/presentation/admin_manage_edir/admin_home_page.dart';
-import 'package:edir/presentation/create_edir/widgets/create_edir_form.dart';
-import 'package:edir/presentation/dashboard/widgets/dashboard_card.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/admin_home_page.dart';
+import 'package:edir/presentation/admin/create_edir/widgets/create_edir_form.dart';
+import 'package:edir/presentation/admin/dashboard/widgets/dashboard_card.dart';
 import 'package:edir/presentation/register/register_page.dart';
 import 'package:edir/presentation/register/widgets/register_form.dart';
 import 'package:edir/presentation/sign_in/sign_in_page.dart';

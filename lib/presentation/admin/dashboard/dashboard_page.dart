@@ -1,5 +1,5 @@
 import 'package:edir/presentation/core/styles.dart';
-import 'package:edir/presentation/dashboard/widgets/dashboard_card.dart';
+import 'package:edir/presentation/admin/dashboard/widgets/dashboard_card.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
