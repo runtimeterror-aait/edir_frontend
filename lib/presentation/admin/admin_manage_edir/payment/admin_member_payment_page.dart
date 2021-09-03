@@ -1,4 +1,5 @@
-import 'package:edir/presentation/admin/admin_manage_edir/admin_add_payment_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/payment/admin_add_payment_page.dart';
+import 'package:edir/presentation/core/appbar.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
@@ -14,31 +15,18 @@ class AdminMemberPaymentPage extends StatefulWidget {
 
 class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
     with Styles {
+  IconButton actionsSettingButton = IconButton(
+    onPressed: () {},
+    icon: Icon(
+      Icons.settings,
+      color: Colors.black,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-        title: Text(
-          "User name",
-          style: TextStyle(
-            color: Colors.black87,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBarSection(
+          title: "Edir name", actions: [actionsSettingButton], elevation: 0),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -68,7 +56,7 @@ class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(15),
+                  top: Radius.circular(20),
                 ),
               ),
               child: ListView(
@@ -149,7 +137,7 @@ class _MemberPayment extends StatelessWidget with Styles {
                 onPressed: () {},
                 icon: Icon(
                   Icons.delete,
-                  color: Colors.amber,
+                  color: Colors.red,
                   size: 24,
                 ))
           ],

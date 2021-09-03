@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:edir/presentation/admin/admin_manage_edir/admin_manage_edir_page.dart';
-import 'package:edir/presentation/admin/admin_manage_edir/admin_manage_selected_edir.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/home/admin_manage_edir_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/home/admin_manage_selected_edir.dart';
 import 'package:edir/presentation/admin/admin_manage_edir/widgets/create_event_card.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:flutter/material.dart';

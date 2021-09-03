@@ -1,4 +1,4 @@
-import 'package:edir/presentation/admin/admin_manage_edir/admin_manage_edir_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/home/admin_manage_edir_page.dart';
 import 'package:edir/presentation/admin/create_edir/create_edir_page.dart';
 import 'package:edir/presentation/admin/dashboard/dashboard_page.dart';
 import 'package:edir/presentation/register/register_page.dart';

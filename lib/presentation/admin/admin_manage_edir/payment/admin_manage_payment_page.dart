@@ -1,4 +1,4 @@
-import 'package:edir/presentation/admin/admin_manage_edir/admin_member_payment_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/payment/admin_member_payment_page.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
