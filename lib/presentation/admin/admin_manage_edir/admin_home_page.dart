@@ -13,6 +13,12 @@ class AdminHomePage extends StatelessWidget with Styles {
     "Metebaber",
     "Andinet",
     "Hibret",
+    "Metebaber",
+    "Andinet",
+    "Hibret",
+    "Metebaber",
+    "Andinet",
+    "Hibret",
   ];
 
   @override
@@ -38,7 +44,7 @@ class AdminHomePage extends StatelessWidget with Styles {
                     height: 20,
                   ),
                   for (String edir in edirNames)
-                    _ManageableEdirs(edirName: edir)
+                    _ManageableEdirs(edirName: edir.toUpperCase())
                 ],
               ),
             ),
@@ -87,7 +93,7 @@ class _ManageableEdirs extends StatelessWidget {
           ],
         ),
         Divider(
-          height: 30,
+          height: 25,
         )
       ],
     );

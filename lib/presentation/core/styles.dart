@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Styles {
+  final TextStyle textStyle_0 = TextStyle(fontSize: 12);
   final TextStyle textStyle_1 = TextStyle(fontSize: 15);
   final TextStyle textStyle_2 = TextStyle(fontSize: 18);
   final TextStyle textStyle_3 = TextStyle(fontSize: 21);
@@ -9,6 +10,8 @@ class Styles {
   final TextStyle textStyle_6 = TextStyle(fontSize: 40);
   final TextStyle textStyle_7 = TextStyle(fontSize: 50);
 
+  final TextStyle textStyleBold_0 =
+      TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
   final TextStyle textStyleBold_1 =
       TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   final TextStyle textStyleBold_2 =

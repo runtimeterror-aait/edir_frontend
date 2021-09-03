@@ -1,4 +1,4 @@
-import 'package:edir/presentation/admin/admin_manage_edir/admin_add_payment_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/admin_member_payment_page.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
@@ -19,46 +19,49 @@ class _AdminManagePaymentPageState extends State<AdminManagePaymentPage>
   ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 50,
-        ),
-        Container(
-          height: 60,
-          child: TextFormField(
-            decoration: InputDecoration(
-              isDense: true,
-              suffix: IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-              labelText: 'Email or username',
-              labelStyle: TextStyle(
-                color: Colors.white,
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            height: 60,
+            child: TextFormField(
+              decoration: InputDecoration(
+                isDense: true,
+                suffix: IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                labelText: 'Email or username',
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                ),
               ),
+              autocorrect: false,
             ),
-            autocorrect: false,
           ),
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Text(
-          "Members",
-          style: textStyle_2.copyWith(color: Colors.amber),
-        ),
-        Divider(
-          height: 70,
-          color: Colors.amber,
-        ),
-        Expanded(
-          child: ListView(
-            children: [
-              for (String member in members)
-                _PaymentMembers(memberName: member),
-            ],
+          SizedBox(
+            height: 50,
           ),
-        )
-      ],
+          Text(
+            "Members",
+            style: textStyle_2.copyWith(color: Colors.amber),
+          ),
+          Divider(
+            height: 70,
+            color: Colors.amber,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                for (String member in members)
+                  _PaymentMembers(memberName: member),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -79,7 +82,7 @@ class _PaymentMembers extends StatelessWidget with SignInAndRegisterForm {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AdminAddPaymentPage()));
+                        builder: (context) => AdminMemberPaymentPage()));
               },
               icon: Icon(Icons.add),
               label: Text("Add payment"),
