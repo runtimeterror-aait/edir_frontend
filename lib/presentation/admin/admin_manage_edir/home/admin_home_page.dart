@@ -87,7 +87,7 @@ class _ManageableEdirs extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.delete,
-                color: Colors.amber,
+                color: Colors.red,
               ),
             )
           ],

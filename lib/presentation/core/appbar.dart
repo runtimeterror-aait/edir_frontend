@@ -7,6 +7,7 @@ class AppBarSection extends StatelessWidget with PreferredSizeWidget {
       this.elevation = 1,
       this.actions = const []})
       : super(key: key);
+
   final String title;
   List<Widget> actions = [];
   final double elevation;

@@ -5,6 +5,7 @@ import 'package:edir/presentation/register/register_page.dart';
 import 'package:edir/presentation/register/widgets/register_form.dart';
 import 'package:edir/presentation/sign_in/sign_in_page.dart';
 import 'package:edir/presentation/splash/splash_page.dart';
+import 'package:edir/presentation/user/dashboard/user_dashboard_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -36,7 +37,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: AdminManageEdirPage(),
+      home: UserDashboardPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,

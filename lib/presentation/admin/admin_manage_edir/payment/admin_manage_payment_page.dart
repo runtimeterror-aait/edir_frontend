@@ -86,12 +86,12 @@ class _PaymentMembers extends StatelessWidget with SignInAndRegisterForm {
               },
               icon: Icon(Icons.add),
               label: Text("Add payment"),
-              style: raisedButtonStyle,
+              style: raisedButtonStyleNormal,
             )
           ],
         ),
         SizedBox(
-          height: 15,
+          height: 20,
         )
       ],
     );
