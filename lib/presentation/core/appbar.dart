@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppBarSection extends StatelessWidget with PreferredSizeWidget {
-  const AppBarSection(
+  AppBarSection(
       {Key? key,
       required this.title,
-      required this.actions,
-      this.elevation = 1})
+      this.elevation = 1,
+      this.actions = const []})
       : super(key: key);
   final String title;
-  final List<Widget> actions;
+  List<Widget> actions = [];
   final double elevation;
 
   @override

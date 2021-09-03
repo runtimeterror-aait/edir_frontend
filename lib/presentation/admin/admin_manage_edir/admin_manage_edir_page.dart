@@ -1,4 +1,5 @@
 import 'package:edir/presentation/admin/admin_manage_edir/home/admin_home_page.dart';
+import 'package:edir/presentation/admin/admin_manage_edir/members/admin_manage_members_page.dart';
 import 'package:edir/presentation/admin/admin_manage_edir/payment/admin_manage_payment_page.dart';
 import 'package:edir/presentation/admin/create_edir/widgets/create_edir_form.dart';
 import 'package:edir/presentation/admin/dashboard/widgets/dashboard_card.dart';
@@ -21,7 +22,7 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
   final List<Widget> _pages = [
     AdminHomePage(),
     AdminManagePaymentPage(),
-    SplashCard(),
+    AdminManageMembersPage(),
   ];
 
   int _selectedPage = 0;
