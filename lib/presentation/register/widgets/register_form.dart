@@ -60,6 +60,27 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                 labelText: 'Phone number',
                 labelStyle: TextStyle(color: Colors.white)),
             autocorrect: false,
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+                isDense: true,
+                labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.white)),
+            autocorrect: false,
+            obscureText: true,
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+                isDense: true,
+                labelText: 'Confirm Password',
+                labelStyle: TextStyle(color: Colors.white)),
+            autocorrect: false,
             obscureText: true,
           ),
           const SizedBox(

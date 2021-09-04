@@ -3,6 +3,7 @@ import 'package:edir/presentation/core/appbar.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:edir/presentation/user/dashboard/widgets/user_dashboard_events_card.dart';
+import 'package:edir/presentation/user/profile/user_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,10 @@ class _UserDashboardPageState extends State<UserDashboardPage>
         leading: Image.asset(logoImageWithoutName),
         actions: <Widget>[
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UserProfilePage()));
+            },
             child: Image.asset('assets/images/business_man.png'),
           )
         ],
