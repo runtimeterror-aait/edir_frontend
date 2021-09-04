@@ -3,6 +3,7 @@ import 'package:edir/presentation/core/appbar.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
 import 'package:edir/presentation/core/styles.dart';
 import 'package:edir/presentation/user/dashboard/widgets/user_dashboard_events_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserDashboardPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _UserDashboardPageState extends State<UserDashboardPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         textTheme: Theme.of(context).textTheme.apply(
@@ -65,20 +67,17 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _joinEdirDialog(context);
+                      },
                       child: Text(
                         "Join Edir",
                         style: TextStyle(color: Colors.amber),
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.black12),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: BorderSide(color: Colors.blueGrey),
-                          ),
-                        ),
+                            MaterialStateProperty.all(Colors.blueGrey),
+                        //
                       ),
                     ),
                     SizedBox(
@@ -92,13 +91,7 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.black12),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: BorderSide(color: Colors.blueGrey),
-                          ),
-                        ),
+                            MaterialStateProperty.all(Colors.blueGrey),
                       ),
                     )
                   ],
@@ -128,6 +121,40 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                 )),
           ),
         ],
+      ),
+    );
+  }
+
+  void _joinEdirDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text('Join Edir'),
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                      isDense: true, labelText: "Edir username"),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Join"),
+                  style: raisedButtonStyleNormal,
+                )
+              ],
+            ),
+          )
+        ],
+        contentPadding: const EdgeInsets.all(10),
       ),
     );
   }

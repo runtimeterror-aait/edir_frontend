@@ -35,6 +35,7 @@ class UserDashboardEventsCard extends StatelessWidget with Styles {
           child: Container(
             height: 300,
             child: ListView(
+              controller: ScrollController(keepScrollOffset: false),
               padding: const EdgeInsets.all(5),
               children: [
                 for (Map eventContainer in eventContainerInputs)
