@@ -1,5 +1,7 @@
+import 'package:edir/presentation/admin/admin_manage_edir/payment/admin_member_payment_page.dart';
 import 'package:edir/presentation/core/appbar.dart';
 import 'package:edir/presentation/core/signin_and_register_form.dart';
+import 'package:edir/presentation/core/styles.dart';
 import 'package:edir/presentation/user/dashboard/widgets/user_dashboard_events_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,7 @@ class UserDashboardPage extends StatefulWidget {
 }
 
 class _UserDashboardPageState extends State<UserDashboardPage>
-    with SignInAndRegisterForm {
+    with SignInAndRegisterForm, Styles {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +32,101 @@ class _UserDashboardPageState extends State<UserDashboardPage>
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 10,
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 5, 0, 10),
+            child: Text("Recent events", style: textStyle_2),
+          ),
           UserDashboardEventsCard(),
-          Spacer(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Total Payments",
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "ETB 300",
+                  style: textStyleBold_3,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Join Edir",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black12),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: BorderSide(color: Colors.blueGrey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "My Edirs",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black12),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: BorderSide(color: Colors.blueGrey),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(
+            height: 30,
+          ),
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  child: ListView(
+                    children: [
+                      for (int i = 0; i < 10; i++)
+                        MemberPayment(
+                          moneyAmount: 100,
+                          paymentNote: "payment note",
+                          selectedDate: DateTime.now(),
+                          isAdmin: false,
+                        ),
+                    ],
+                  ),
+                )),
+          ),
         ],
       ),
     );

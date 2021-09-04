@@ -62,7 +62,7 @@ class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
               child: ListView(
                 children: [
                   for (int i = 0; i < 10; i++)
-                    _MemberPayment(
+                    MemberPayment(
                       moneyAmount: 100,
                       paymentNote: "paymentNote paymentNote paymentNote",
                       selectedDate: DateTime.now(),
@@ -77,70 +77,78 @@ class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
   }
 }
 
-class _MemberPayment extends StatelessWidget with Styles {
-  _MemberPayment(
+class MemberPayment extends StatelessWidget with Styles {
+  MemberPayment(
       {Key? key,
       required this.moneyAmount,
       required this.paymentNote,
-      required this.selectedDate})
+      required this.selectedDate,
+      this.isAdmin = true})
       : super(key: key);
   int moneyAmount;
   String paymentNote;
   DateTime selectedDate;
+  bool isAdmin;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "ETB $moneyAmount",
-                  style: textStyle_2,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: 200,
-                  child: Text(
-                    "$paymentNote",
-                    style: textStyle_0,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "ETB $moneyAmount",
+                    style: textStyle_2,
                   ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                SizedBox(
-                  width: 200,
-                  child: Text(
-                    selectedDate.toString(),
-                    style: textStyle_0,
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.edit,
-                color: Colors.amber,
-                size: 24,
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      "$paymentNote",
+                      style: textStyle_0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      selectedDate.toString(),
+                      style: textStyle_0,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: 24,
-                ))
-          ],
+              if (isAdmin) Spacer(),
+              if (isAdmin)
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.amber,
+                    size: 24,
+                  ),
+                ),
+              if (isAdmin)
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                    size: 24,
+                  ),
+                )
+            ],
+          ),
         ),
         Divider(
           color: Colors.amber,
