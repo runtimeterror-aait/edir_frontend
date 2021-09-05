@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: UserDashboardPage(),
+      home: SplashPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,

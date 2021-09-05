@@ -24,24 +24,24 @@ class SplashCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             ListTile(
               title: Text('Welcome to Edir',
                   style: TextStyle(fontWeight: FontWeight.w600)),
               subtitle: Text(
-                'Edir is a society organization in which people help eachohter in hard tiimes. You can create your own edir or signup for an existing one.',
+                'Edir is a society organization in which people help each others in hard times. You can create your own edir or signup for an existing one.',
               ),
             ),
             SizedBox(
               height: 15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   style: raisedButtonStyle,
-                  child: const Text('Sign up'),
+                  child: const Text('Create Account'),
                   onPressed: () {/* ... */},
                 ),
                 SizedBox(
@@ -49,23 +49,13 @@ class SplashCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: raisedButtonStyle,
-                  child: const Text('Create Edir'),
+                  child: const Text('Login'),
                   onPressed: () {/* ... */},
                 ),
               ],
             ),
             SizedBox(
               height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Already have an account?"),
-                TextButton(
-                  onPressed: () {},
-                  child: Text('Sign in'),
-                ),
-              ],
             ),
             SizedBox(
               height: 5,
