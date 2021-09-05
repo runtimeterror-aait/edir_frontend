@@ -42,7 +42,9 @@ class SplashCard extends StatelessWidget {
                 ElevatedButton(
                   style: raisedButtonStyle,
                   child: const Text('Create Account'),
-                  onPressed: () {/* ... */},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
                 ),
                 SizedBox(
                   width: 10,
@@ -50,7 +52,9 @@ class SplashCard extends StatelessWidget {
                 ElevatedButton(
                   style: raisedButtonStyle,
                   child: const Text('Login'),
-                  onPressed: () {/* ... */},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                 ),
               ],
             ),

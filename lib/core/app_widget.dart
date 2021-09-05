@@ -8,6 +8,10 @@ import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/user/screens/dashboard/user_dashboard_page.dart';
 import 'package:flutter/material.dart';
 
+const SplashRoute = "/";
+const RegisterRoute = "/register";
+const LoginRoute = "/login";
+
 class AppWidget extends StatelessWidget {
   // const AppWidget({Key? key}) : super(key: key);
   final ThemeData _light = ThemeData.light().copyWith(
@@ -36,12 +40,33 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: _routes(),
       title: 'edir',
-      home: SplashPage(),
+      // home: SplashPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
     );
+  }
+
+  RouteFactory _routes() {
+    return (settings) {
+      Widget screen;
+      switch (settings.name) {
+        case SplashRoute:
+          screen = SplashPage();
+          break;
+        case RegisterRoute:
+          screen = RegisterPage();
+          break;
+        case LoginRoute:
+          screen = SignInPage();
+          break;
+        default:
+          return null;
+      }
+      return MaterialPageRoute(builder: (BuildContext context) => screen);
+    };
   }
 }
