@@ -2,14 +2,14 @@ import 'package:edir/core/styles.dart';
 import 'package:edir/admin/screens/dashboard/widgets/dashboard_card.dart';
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+class AdminDashboardPage extends StatefulWidget {
+  const AdminDashboardPage({Key? key}) : super(key: key);
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _AdminDashboardPageState createState() => _AdminDashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> with Styles {
+class _AdminDashboardPageState extends State<AdminDashboardPage> with Styles {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
