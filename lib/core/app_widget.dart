@@ -1,6 +1,6 @@
 import 'package:edir/admin/screens/admin_manage_edir/admin_manage_edir_page.dart';
 import 'package:edir/admin/screens/create_edir/create_edir_page.dart';
-import 'package:edir/admin/screens/dashboard/admin_dashboard_page.dart';
+import 'package:edir/admin/screens/dashboard/dashboard_page.dart';
 import 'package:edir/register/screens/register_page.dart';
 import 'package:edir/register/screens/widgets/register_form.dart';
 import 'package:edir/sign_in/screens/sign_in_page.dart';
@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: AdminDashboardPage(),
+      home: UserDashboardPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,

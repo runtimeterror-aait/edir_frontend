@@ -10,14 +10,15 @@ class AdminHomePage extends StatelessWidget with Styles {
   AdminHomePage({Key? key}) : super(key: key);
 
   List edirNames = [
-    "Funeral",
-    "Cleaning",
-    "Meeting",
-    "Gathering",
-    "Funeral",
-    "Cleaning",
-    "Meeting",
-    "Gathering",
+    "Metebaber",
+    "Andinet",
+    "Hibret",
+    "Metebaber",
+    "Andinet",
+    "Hibret",
+    "Metebaber",
+    "Andinet",
+    "Hibret",
   ];
 
   @override
@@ -36,7 +37,7 @@ class AdminHomePage extends StatelessWidget with Styles {
               child: ListView(
                 children: [
                   Text(
-                    "Events",
+                    "Edir name",
                     style: textStyle_2,
                   ),
                   SizedBox(

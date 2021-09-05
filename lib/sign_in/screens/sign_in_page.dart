@@ -21,29 +21,3 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
-
-class SingleLineText extends StatelessWidget {
-  SingleLineText({Key? key, required this.controller}) : super(key: key);
-
-  TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: this.controller,
-      style: TextStyle(color: Colors.black, fontSize: 14),
-      decoration: InputDecoration(
-        fillColor: Colors.white,
-        filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black38, width: 2.0),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black12, width: 2.0),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
-}
