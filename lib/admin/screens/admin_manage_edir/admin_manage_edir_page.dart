@@ -3,10 +3,10 @@ import 'package:edir/admin/screens/admin_manage_edir/members/admin_manage_member
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_manage_payment_page.dart';
 import 'package:edir/admin/screens/create_edir/widgets/create_edir_form.dart';
 import 'package:edir/admin/screens/dashboard/widgets/dashboard_card.dart';
-import 'package:edir/register/screens/register_page.dart';
-import 'package:edir/register/screens/widgets/register_form.dart';
-import 'package:edir/sign_in/screens/sign_in_page.dart';
-import 'package:edir/sign_in/screens/widgets/sign_in_form.dart';
+import 'package:edir/auth/screens/register/screens/register_page.dart';
+import 'package:edir/auth/screens/register/screens/widgets/register_form.dart';
+import 'package:edir/auth/screens/sign_in/screens/sign_in_page.dart';
+import 'package:edir/auth/screens/sign_in/screens/widgets/sign_in_form.dart';
 import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/splash/screens/widgets/splash_card.dart';
 import 'package:flutter/material.dart';

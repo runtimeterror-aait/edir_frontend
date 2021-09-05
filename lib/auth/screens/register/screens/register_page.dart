@@ -1,4 +1,4 @@
-import 'package:edir/register/screens/widgets/register_form.dart';
+import 'package:edir/auth/screens/register/screens/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:edir/sign_in/screens/widgets/sign_in_form.dart';
+import 'package:edir/auth/screens/sign_in/screens/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
