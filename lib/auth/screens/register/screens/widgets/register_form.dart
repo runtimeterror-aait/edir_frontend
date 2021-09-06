@@ -47,16 +47,6 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
           TextFormField(
             decoration: InputDecoration(
                 isDense: true,
-                labelText: 'Username',
-                labelStyle: TextStyle(color: Colors.white)),
-            autocorrect: false,
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-                isDense: true,
                 labelText: 'Phone number',
                 labelStyle: TextStyle(color: Colors.white)),
             autocorrect: false,
@@ -75,20 +65,11 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
           const SizedBox(
             height: 25,
           ),
-          TextFormField(
-            decoration: InputDecoration(
-                isDense: true,
-                labelText: 'Confirm Password',
-                labelStyle: TextStyle(color: Colors.white)),
-            autocorrect: false,
-            obscureText: true,
-          ),
-          const SizedBox(
-            height: 25,
-          ),
           ElevatedButton(
             style: raisedButtonStyle,
-            onPressed: () {},
+            onPressed: () {
+              //signup here
+            },
             child: const Text('Register'),
           ),
           SizedBox(
@@ -97,25 +78,15 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
           Row(
             children: [
               TextButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.email,
-                  color: Colors.grey[200],
-                ),
-                label: const Text(
-                  'SIGN UP WITH GOOGLE',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Spacer(),
-              TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
                 icon: Icon(
                   Icons.login,
                   color: Colors.grey[200],
                 ),
                 label: const Text(
-                  'SIGN IN',
+                  'Already Have Account',
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -128,16 +99,3 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
     ));
   }
 }
-// class Register extends StatelessWidget {
-//   const Register(
-//       {Key? key,
-//       required this.raisedButtonStyle,
-//       required this.fontSize,
-//       required this.logoImage})
-//       : super(key: key);
-//   final ButtonStyle raisedButtonStyle;
-//   final double fontSize;
-//   final String logoImage;
-  
-//   }
-// }
