@@ -66,9 +66,10 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     } else if (event is DeleteEvent) {
       try {
         await eventRepository.deleteEvent(event.eventId);
+        yield EventLoadingState();
         final List<Event> events =
             await eventRepository.getAllEvents(event.edirId);
-        yield AllEventsLoadedState(events: events);
+        yield LoadAfterDeleteState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }

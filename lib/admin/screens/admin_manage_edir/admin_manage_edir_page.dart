@@ -48,6 +48,7 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
           "Metebaber",
           style: TextStyle(color: Colors.black87),
         ),
+        backgroundColor: Colors.amber,
         actions: [
           IconButton(
             onPressed: () {},

@@ -60,7 +60,27 @@ class _AdminHomePageState extends State<AdminHomePage> with Styles {
                           color: Colors.amber,
                         ),
                       );
-                    } else if (state is AllEventsLoadedState) {
+                    }
+                    if (state is AllEventsLoadedState) {
+                      List<Event> events = state.events;
+                      if (events.length == 0) {
+                        return Center(
+                          child: Text("No events yet."),
+                        );
+                      }
+                      return SizedBox(
+                        height: 400,
+                        child: ListView.builder(
+                          itemCount: events.length,
+                          itemBuilder: (_, id) => _ManageableEvents(
+                            eventTitle: '${events.elementAt(id).title}',
+                            eventId: events.elementAt(id).id!,
+                            event: events.elementAt(id),
+                          ),
+                        ),
+                      );
+                    }
+                    if (state is LoadAfterDeleteState) {
                       List<Event> events = state.events;
                       if (events.length == 0) {
                         return Center(
@@ -129,12 +149,15 @@ class __ManageableEventsState extends State<_ManageableEvents> {
               ),
             ),
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 print("edir id: ${widget.eventId}");
-
+                print(
+                    "${BlocProvider.of<AdminEventBloc>(context).state} this is before onpressed state");
                 BlocProvider.of<AdminEventBloc>(context).add(
                   DeleteEvent(widget.eventId, widget.event.edirId),
                 );
+                print(
+                    "${BlocProvider.of<AdminEventBloc>(context).state} this is onpressed state");
               },
               icon: Icon(
                 Icons.delete,
