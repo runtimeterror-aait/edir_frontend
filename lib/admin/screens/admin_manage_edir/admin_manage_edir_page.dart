@@ -1,3 +1,6 @@
+import 'package:edir/admin/bloc/admin_event_bloc.dart';
+import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
+import 'package:edir/admin/repository/admin_event_repository.dart';
 import 'package:edir/admin/screens/admin_manage_edir/home/admin_home_page.dart';
 import 'package:edir/admin/screens/admin_manage_edir/members/admin_manage_members_page.dart';
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_manage_payment_page.dart';
@@ -10,6 +13,7 @@ import 'package:edir/sign_in/screens/widgets/sign_in_form.dart';
 import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/splash/screens/widgets/splash_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdminManageEdirPage extends StatefulWidget {
   AdminManageEdirPage({Key? key}) : super(key: key);
@@ -33,6 +37,9 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
     });
   }
 
+  AdminEventRepository eventRepository =
+      AdminEventRepository(AdminDataProvider());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +58,12 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
           ),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: _pages[_selectedPage],
+      body: BlocProvider(
+        create: (context) => AdminEventBloc(eventRepository: eventRepository),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: _pages[_selectedPage],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
           items: [

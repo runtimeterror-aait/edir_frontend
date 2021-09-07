@@ -1,4 +1,7 @@
+import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
+import 'package:edir/admin/repository/admin_event_repository.dart';
 import 'package:edir/admin/screens/admin_manage_edir/admin_manage_edir_page.dart';
+import 'package:edir/admin/screens/admin_manage_edir/home/admin_home_page.dart';
 import 'package:edir/admin/screens/create_edir/create_edir_page.dart';
 import 'package:edir/admin/screens/dashboard/dashboard_page.dart';
 import 'package:edir/register/screens/register_page.dart';
@@ -33,11 +36,14 @@ class AppWidget extends StatelessWidget {
     ),
   );
 
+  final AdminEventRepository eventRepository =
+      AdminEventRepository(AdminDataProvider());
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'edir',
-      home: UserDashboardPage(),
+      home: AdminManageEdirPage(),
       darkTheme: _dark,
       theme: _light,
       themeMode: ThemeMode.dark,
