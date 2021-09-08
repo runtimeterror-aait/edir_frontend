@@ -26,7 +26,7 @@ class AuthDataProvider {
     }
   }
 
-  Future<Login> login(String email, String password) async {
+  Future<Login> logIn(String email, String password) async {
     var data = {"email": email, "password": password};
 
     try {
