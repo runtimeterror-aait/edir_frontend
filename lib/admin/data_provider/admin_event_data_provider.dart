@@ -117,7 +117,7 @@ class AdminDataProvider {
 
   // Delete Event
 
-  Future<void> deleteEvent(int eventId) async {
+  Future<List<Event>> deleteEvent(int eventId) async {
     final url = Uri.parse("$_baseUrl/$eventId");
     final response = await http.delete(
       url,
@@ -128,8 +128,12 @@ class AdminDataProvider {
     );
     if (response.statusCode == 200) {
       print("Successfully deleted.");
+
+      return await getAllEvents(2);
     } else {
-      print("other than 200");
+      print("Deletion failed.");
+
+      return await getAllEvents(2);
     }
   }
 }

@@ -25,10 +25,12 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     AdminEventEvent event,
   ) async* {
     if (event is CreateEventEvent) {
+      print("inside create event");
       try {
         await eventRepository.create(event.event);
         final List<Event> events =
             await eventRepository.getAllEvents(event.edirId);
+
         yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
@@ -64,15 +66,16 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
         yield EventOperationFailedState();
       }
     } else if (event is DeleteEvent) {
+      print("inside delete event");
       try {
-        await eventRepository.deleteEvent(event.eventId);
-        yield EventLoadingState();
         final List<Event> events =
-            await eventRepository.getAllEvents(event.edirId);
-        yield LoadAfterDeleteState(events: events);
+            await eventRepository.deleteEvent(event.eventId);
+        yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }
     }
   }
+
+  // bool _isTitleEmpty(String value) => value.isEmpty;
 }

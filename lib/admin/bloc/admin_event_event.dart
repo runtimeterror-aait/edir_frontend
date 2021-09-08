@@ -56,9 +56,9 @@ class UpdateEventEvent extends AdminEventEvent {
 class DeleteEvent extends AdminEventEvent {
   final int eventId;
   final int edirId;
-
+  DateTime timestamp = DateTime.now();
   DeleteEvent(this.eventId, this.edirId);
 
   @override
-  List<Object?> get props => [eventId, edirId];
+  List<Object?> get props => [eventId, edirId, timestamp];
 }

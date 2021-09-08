@@ -60,14 +60,14 @@ class _AdminHomePageState extends State<AdminHomePage> with Styles {
                           color: Colors.amber,
                         ),
                       );
-                    }
-                    if (state is AllEventsLoadedState) {
+                    } else if (state is AllEventsLoadedState) {
                       List<Event> events = state.events;
                       if (events.length == 0) {
                         return Center(
                           child: Text("No events yet."),
                         );
                       }
+
                       return SizedBox(
                         height: 400,
                         child: ListView.builder(
@@ -140,7 +140,8 @@ class __ManageableEventsState extends State<_ManageableEvents> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AdminManageSelectedEdir()),
+                    builder: (context) => AdminManageSelectedEdir(),
+                  ),
                 );
               },
               icon: Icon(
@@ -149,15 +150,8 @@ class __ManageableEventsState extends State<_ManageableEvents> {
               ),
             ),
             IconButton(
-              onPressed: () async {
-                print("edir id: ${widget.eventId}");
-                print(
-                    "${BlocProvider.of<AdminEventBloc>(context).state} this is before onpressed state");
-                BlocProvider.of<AdminEventBloc>(context).add(
-                  DeleteEvent(widget.eventId, widget.event.edirId),
-                );
-                print(
-                    "${BlocProvider.of<AdminEventBloc>(context).state} this is onpressed state");
+              onPressed: () {
+                alertDialog(context);
               },
               icon: Icon(
                 Icons.delete,
@@ -171,5 +165,29 @@ class __ManageableEventsState extends State<_ManageableEvents> {
         )
       ],
     );
+  }
+
+  alertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Delete'),
+            content: Text('Are you sure you want to delete this event?'),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('Confirm'),
+                onPressed: () {
+                  BlocProvider.of<AdminEventBloc>(context).add(
+                    DeleteEvent(
+                      widget.eventId,
+                      widget.event.edirId,
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        });
   }
 }

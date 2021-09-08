@@ -22,8 +22,8 @@ class AdminEventRepository {
     return this.dataProvider.updateEvent(event, eventId);
   }
 
-  Future<void> deleteEvent(int eventId) async {
-    this.dataProvider.deleteEvent(eventId);
+  Future<List<Event>> deleteEvent(int eventId) async {
+    return this.dataProvider.deleteEvent(eventId);
   }
 }
 

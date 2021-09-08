@@ -13,13 +13,18 @@ class EventLoadingState extends AdminEventState {
   List<Object> get props => [];
 }
 
+class EventIgnoredState extends AdminEventState {
+  @override
+  List<Object> get props => [];
+}
+
 class AllEventsLoadedState extends AdminEventState {
   final List<Event> events;
-
-  AllEventsLoadedState({required this.events});
+  final DateTime timeStamp = DateTime.now();
+  AllEventsLoadedState({required this.events}) : super();
 
   @override
-  List<Object> get props => [events];
+  List<Object> get props => [events, timeStamp];
 }
 
 class OneEventLoadedState extends AdminEventState {
