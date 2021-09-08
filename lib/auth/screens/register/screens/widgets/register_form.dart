@@ -95,8 +95,6 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                     final form = _formKey.currentState;
                     if (form != null) {
                       form.save();
-                      print(this._user);
-
                       BlocProvider.of<AuthBloc>(context).add(SignUp(
                         User(
                           id: null,
@@ -107,6 +105,10 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                           role: "a",
                         ),
                       ));
+                      form.reset();
+                      Future.delayed(const Duration(milliseconds: 3000), () {
+                        Navigator.pushNamed(context, '/login');
+                      });
                     }
                   },
                   child: const Text('Register'),
@@ -145,7 +147,7 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
       SnackBar(
         content: Text(msg),
         action: SnackBarAction(
-            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
