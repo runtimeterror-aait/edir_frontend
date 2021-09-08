@@ -23,7 +23,7 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
                   Icons.email,
                   color: Colors.amber[300],
                 ),
-                labelText: 'Email or username',
+                labelText: 'Email',
                 labelStyle: TextStyle(color: Colors.white, fontSize: fontSize)),
             autocorrect: false,
           ),
@@ -56,23 +56,15 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.email,
-                    color: Colors.grey[200],
-                  ),
-                  label: const Text(
-                    'SIGN IN WITH GOOGLE',
-                    style: TextStyle(color: Colors.grey),
-                  )),
-              TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/register");
+                  },
                   icon: Icon(
                     Icons.person_add,
                     color: Colors.grey[200],
                   ),
-                  label: const Text(
-                    'REGISTER',
+                  label: Text(
+                    'Register',
                     style: TextStyle(
                       color: Colors.grey,
                     ),
