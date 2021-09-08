@@ -15,7 +15,7 @@ class AuthDataProvider {
     };
 
     try {
-      var response = _dio.post(_baseUrl, data: data);
+      var response = await _dio.post(_baseUrl, data: data);
       return User.fromJson(response.data);
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");

@@ -14,7 +14,7 @@ class AuthInitial extends AuthState {
 class AuthLoading extends AuthState {
   const AuthLoading();
   @override
-  List<Object> get props => null;
+  List<Object> get props => [];
 }
 
 class AuthLoaded extends AuthState {
