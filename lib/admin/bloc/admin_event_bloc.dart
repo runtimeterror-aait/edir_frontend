@@ -27,9 +27,10 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     if (event is CreateEventEvent) {
       print("inside create event");
       try {
+        yield EventLoadingState();
         await eventRepository.create(event.event);
         final List<Event> events = await eventRepository.getAllEvents();
-        AllEventsLoadedState(events: events);
+        yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }
@@ -63,6 +64,7 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     } else if (event is DeleteEvent) {
       print("inside delete event");
       try {
+        yield EventLoadingState();
         final List<Event> events =
             await eventRepository.deleteEvent(event.eventId);
         yield AllEventsLoadedState(events: events);
