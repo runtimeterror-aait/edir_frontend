@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:edir/core/models/edir.dart';
 import 'package:edir/core/models/event.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,17 +32,32 @@ class AdminDataProvider {
     if (response.statusCode == 200) {
       return "Created event successfully";
     } else {
-      print(response.body);
-      print(response.statusCode);
       throw Exception("Failed to create edir");
     }
   }
 
 // Get all events
+  Future<Edir> getEdir() async {
+    final urlEdir =
+        Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
+    final responseEdir = await http.get(
+      urlEdir,
+      headers: <String, String>{
+        'accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
 
-  Future<List<Event>> getAllEvents(int edirId) async {
+    final edir = Edir.fromJson(
+      jsonDecode(responseEdir.body),
+    );
+    return edir;
+  }
+
+  Future<List<Event>> getAllEvents() async {
+    Edir edir = await getEdir();
     final url = Uri.parse(
-        "http://127.0.0.1:8000/api/v1/events/$edirId?skip=0&limit=20");
+        "http://127.0.0.1:8000/api/v1/events/${edir.id}?skip=0&limit=20");
     final http.Response response = await http.get(
       url,
       headers: <String, String>{
@@ -66,11 +82,15 @@ class AdminDataProvider {
 
 // Get one Event
 
-  Future<Event> getOneEvent(int edirId, int eventId) async {
-    final Uri url = Uri.parse("$_baseUrl/$edirId/$eventId");
+  Future<Event> getOneEvent(int eventId) async {
+    Edir edir = await getEdir();
+    final Uri url = Uri.parse("$_baseUrl/${edir.id}/$eventId");
     final http.Response response = await http.get(
       url,
-      headers: {'accept': 'application/json', 'Authorization': 'Bearer $token'},
+      headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
 
     if (response.statusCode == 200) {
@@ -129,11 +149,11 @@ class AdminDataProvider {
     if (response.statusCode == 200) {
       print("Successfully deleted.");
 
-      return await getAllEvents(2);
+      return await getAllEvents();
     } else {
       print("Deletion failed.");
 
-      return await getAllEvents(2);
+      return await getAllEvents();
     }
   }
 }
@@ -142,12 +162,13 @@ void main() async {
   AdminDataProvider adminDataProvider = AdminDataProvider();
   Event event = Event(
     title: "Gathering",
-    description: "this is cleaning",
+    description: "this is cleanings",
     eventDate: DateTime.now(),
     edirId: 2,
   );
 
-  await adminDataProvider.createEvent(event);
+  // await adminDataProvider.createEvent(event);
 
-  // final edir = await adminDataProvider.deleteEvent(9);
+  final edir = await adminDataProvider.updateEvent(event, 39);
+  print(edir.description);
 }

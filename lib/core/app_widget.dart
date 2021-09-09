@@ -1,3 +1,4 @@
+import 'package:edir/admin/bloc/admin_event_bloc.dart';
 import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
 import 'package:edir/admin/repository/admin_event_repository.dart';
 import 'package:edir/admin/screens/admin_manage_edir/admin_manage_edir_page.dart';
@@ -10,6 +11,7 @@ import 'package:edir/sign_in/screens/sign_in_page.dart';
 import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/user/screens/dashboard/user_dashboard_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppWidget extends StatelessWidget {
   // const AppWidget({Key? key}) : super(key: key);
@@ -36,8 +38,8 @@ class AppWidget extends StatelessWidget {
     ),
   );
 
-  final AdminEventRepository eventRepository =
-      AdminEventRepository(AdminDataProvider());
+  // final AdminEventRepository eventRepository =
+  //     AdminEventRepository(AdminDataProvider());
 
   @override
   Widget build(BuildContext context) {

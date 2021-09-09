@@ -59,12 +59,9 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
           ),
         ],
       ),
-      body: BlocProvider(
-        create: (context) => AdminEventBloc(eventRepository: eventRepository),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: _pages[_selectedPage],
-        ),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: _pages[_selectedPage],
       ),
       bottomNavigationBar: BottomNavigationBar(
           items: [

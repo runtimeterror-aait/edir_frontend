@@ -37,6 +37,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
           child: Column(
             children: [
               TextFormField(
+                maxLength: 25,
                 controller: _eventTitleController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (value) {
@@ -61,6 +62,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                 height: 20,
               ),
               TextFormField(
+                maxLength: 65,
                 controller: _eventDescriptionController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (value) {
@@ -123,11 +125,10 @@ class _CreateEventCardState extends State<CreateEventCard> {
                             eventDate: selectedDate!,
                             edirId: 2);
 
-                        setState(() {
-                          print("hey");
-                          BlocProvider.of<AdminEventBloc>(context)
-                              .add(CreateEventEvent(event, 2));
-                        });
+                        BlocProvider.of<AdminEventBloc>(context)
+                            .add(CreateEventEvent(event));
+
+                        FocusManager.instance.primaryFocus?.unfocus();
                       }
                     },
                     child: Text(
@@ -146,6 +147,12 @@ class _CreateEventCardState extends State<CreateEventCard> {
         ),
       ),
     );
+  }
+
+  void resetForm() {
+    _eventDescriptionController.clear();
+    _eventTitleController.clear();
+    setState(() {});
   }
 
   void _datePicker(BuildContext context) async {

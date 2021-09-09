@@ -10,12 +10,12 @@ class AdminEventRepository {
     return this.dataProvider.createEvent(event);
   }
 
-  Future<Event> getOneEvent(int edirId, int eventId) async {
-    return this.dataProvider.getOneEvent(edirId, eventId);
+  Future<Event> getOneEvent(int eventId) async {
+    return this.dataProvider.getOneEvent(eventId);
   }
 
-  Future<List<Event>> getAllEvents(int edirId) async {
-    return this.dataProvider.getAllEvents(edirId);
+  Future<List<Event>> getAllEvents() async {
+    return this.dataProvider.getAllEvents();
   }
 
   Future<Event> updateEvent(Event event, int eventId) async {
@@ -29,5 +29,6 @@ class AdminEventRepository {
 
 main(List<String> args) async {
   AdminEventRepository repository = AdminEventRepository(AdminDataProvider());
-  await repository.deleteEvent(15);
+  var event = await repository.getOneEvent(39);
+  print(event.description);
 }

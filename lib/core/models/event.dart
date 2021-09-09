@@ -21,4 +21,16 @@ class Event {
         edirId: json['edir_id'],
         id: json['id']);
   }
+  Event copyWith({
+    String? title,
+    String? description,
+    DateTime? eventDate,
+    int? edirId,
+  }) =>
+      Event(
+        title: title ?? this.title,
+        description: description ?? this.description,
+        eventDate: eventDate ?? this.eventDate,
+        edirId: edirId ?? this.edirId,
+      );
 }

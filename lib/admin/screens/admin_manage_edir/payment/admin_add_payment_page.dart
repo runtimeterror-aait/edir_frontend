@@ -22,9 +22,6 @@ class _AdminAddPaymentPageState extends State<AdminAddPaymentPage>
       appBar: AppBar(
         title: Text("Add Payment"),
         iconTheme: IconThemeData(color: Colors.black),
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
         actions: [
           IconButton(
             onPressed: () {},

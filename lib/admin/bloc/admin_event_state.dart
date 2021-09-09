@@ -28,13 +28,12 @@ class AllEventsLoadedState extends AdminEventState {
 }
 
 class OneEventLoadedState extends AdminEventState {
-  final Event event;
-  final List<Event> events;
+  final Event getEvent;
 
-  OneEventLoadedState({required this.event, required this.events});
+  OneEventLoadedState({required this.getEvent});
 
   @override
-  List<Object> get props => [event, events];
+  List<Object> get props => [getEvent];
 }
 
 class LoadAfterDeleteState extends AdminEventState {

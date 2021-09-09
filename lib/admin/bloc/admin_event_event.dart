@@ -7,37 +7,30 @@ abstract class AdminEventEvent extends Equatable {
 
 class CreateEventEvent extends AdminEventEvent {
   final Event event;
-  final int edirId;
 
-  const CreateEventEvent(this.event, this.edirId);
-
-  @override
-  List<Object?> get props => [event, edirId];
+  const CreateEventEvent(this.event);
 
   @override
-  String toString() => 'Create event {event: $event, edirId: $edirId}';
+  List<Object?> get props => [event];
+
+  @override
+  String toString() => 'Create event {event: $event}';
 }
 
 class GetOneEventEvent extends AdminEventEvent {
   final int eventId;
-  final int edirId;
 
-  const GetOneEventEvent(this.edirId, this.eventId);
-
-  @override
-  List<Object?> get props => [edirId, eventId];
+  const GetOneEventEvent(this.eventId);
 
   @override
-  String toString() => 'Get edir {edirId: $edirId, eventId: $edirId}';
+  List<Object?> get props => [eventId];
 }
 
 class GetAllEventsEvent extends AdminEventEvent {
-  final int edirId;
-
-  GetAllEventsEvent(this.edirId);
+  GetAllEventsEvent();
 
   @override
-  List<Object?> get props => [edirId];
+  List<Object?> get props => [];
 }
 
 class UpdateEventEvent extends AdminEventEvent {

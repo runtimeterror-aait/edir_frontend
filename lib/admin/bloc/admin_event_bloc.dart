@@ -28,39 +28,34 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
       print("inside create event");
       try {
         await eventRepository.create(event.event);
-        final List<Event> events =
-            await eventRepository.getAllEvents(event.edirId);
-
-        yield AllEventsLoadedState(events: events);
+        final List<Event> events = await eventRepository.getAllEvents();
+        AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }
     } else if (event is GetAllEventsEvent) {
       try {
         yield EventLoadingState();
-        final List<Event> events =
-            await eventRepository.getAllEvents(event.edirId);
+        final List<Event> events = await eventRepository.getAllEvents();
         yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }
     } else if (event is GetOneEventEvent) {
-      // yield EventLoadingState();
       try {
-        final Event oneEvent =
-            await eventRepository.getOneEvent(event.edirId, event.eventId);
-        final List<Event> events =
-            await eventRepository.getAllEvents(event.edirId);
-        yield AllEventsLoadedState(events: events);
-        yield OneEventLoadedState(event: oneEvent, events: events);
+        final Event oneEvent = await eventRepository.getOneEvent(event.eventId);
+        // final List<Event> events = await eventRepository.getAllEvents();
+        yield OneEventLoadedState(getEvent: oneEvent);
+
+        // yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
       }
     } else if (event is UpdateEventEvent) {
       try {
         await eventRepository.updateEvent(event.event, event.eventId);
-        final List<Event> events =
-            await eventRepository.getAllEvents(event.eventId);
+        yield EventLoadingState();
+        final List<Event> events = await eventRepository.getAllEvents();
         yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
