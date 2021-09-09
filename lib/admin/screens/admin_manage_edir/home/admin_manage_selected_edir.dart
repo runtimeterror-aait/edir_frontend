@@ -21,7 +21,8 @@ class _AdminManageSelectedEdirState extends State<AdminManageSelectedEdir>
   final _eventDescriptionController = TextEditingController();
   String validationStringTitle = "validate";
   String validationStringDescription = "validate";
-  AdminEventRepository repository = AdminEventRepository(AdminDataProvider());
+  AdminEventRepository repository =
+      AdminEventRepository(AdminEventDataProvider());
   int? eventId;
   Event? event;
   @override

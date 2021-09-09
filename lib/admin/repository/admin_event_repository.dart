@@ -3,7 +3,7 @@ import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
 import 'package:edir/core/models/event.dart';
 
 class AdminEventRepository {
-  final AdminDataProvider dataProvider;
+  final AdminEventDataProvider dataProvider;
   AdminEventRepository(this.dataProvider);
 
   Future<String> create(Event event) async {
@@ -28,7 +28,8 @@ class AdminEventRepository {
 }
 
 main(List<String> args) async {
-  AdminEventRepository repository = AdminEventRepository(AdminDataProvider());
+  AdminEventRepository repository =
+      AdminEventRepository(AdminEventDataProvider());
   var event = await repository.getOneEvent(39);
   print(event.description);
 }

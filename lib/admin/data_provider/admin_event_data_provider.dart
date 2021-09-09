@@ -1,13 +1,12 @@
 import 'dart:convert';
 
+import 'package:edir/core/credentials.dart';
 import 'package:edir/core/models/edir.dart';
 import 'package:edir/core/models/event.dart';
 import 'package:http/http.dart' as http;
 
-class AdminDataProvider {
+class AdminEventDataProvider with Credentials {
   static final String _baseUrl = "http://127.0.0.1:8000/api/v1/events";
-  final token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzEzOTYxMjYsImlhdCI6MTYzMDk2NDEyNiwic3ViIjoibGl5dWFkbWluQGdtYWlsLmNvbSJ9.PTE2mYsS4xS7BMDfgRxouHXc09SVFsiAxoYkpKrPmXY";
 
 // Create Event
   Future<String> createEvent(Event event) async {
@@ -36,7 +35,7 @@ class AdminDataProvider {
     }
   }
 
-// Get all events
+// Get the current edir
   Future<Edir> getEdir() async {
     final urlEdir =
         Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
@@ -54,6 +53,7 @@ class AdminDataProvider {
     return edir;
   }
 
+// Get all events
   Future<List<Event>> getAllEvents() async {
     Edir edir = await getEdir();
     final url = Uri.parse(
@@ -159,7 +159,7 @@ class AdminDataProvider {
 }
 
 void main() async {
-  AdminDataProvider adminDataProvider = AdminDataProvider();
+  AdminEventDataProvider adminEventDataProvider = AdminEventDataProvider();
   Event event = Event(
     title: "Gathering",
     description: "this is cleanings",
@@ -167,8 +167,8 @@ void main() async {
     edirId: 2,
   );
 
-  // await adminDataProvider.createEvent(event);
+  // await adminEventDataProvider.createEvent(event);
 
-  final edir = await adminDataProvider.updateEvent(event, 39);
+  final edir = await adminEventDataProvider.updateEvent(event, 39);
   print(edir.description);
 }

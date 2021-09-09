@@ -39,7 +39,7 @@ class AppWidget extends StatelessWidget {
   );
 
   // final AdminEventRepository eventRepository =
-  //     AdminEventRepository(AdminDataProvider());
+  //     AdminEventRepository(AdminEventDataProvider());
 
   @override
   Widget build(BuildContext context) {

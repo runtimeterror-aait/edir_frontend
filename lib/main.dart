@@ -10,11 +10,13 @@ import 'admin/repository/admin_event_repository.dart';
 void main() {
   Bloc.observer = SimpleBlocObserver();
   final AdminEventRepository eventRepository =
-      AdminEventRepository(AdminDataProvider());
+      AdminEventRepository(AdminEventDataProvider());
 
-  runApp(BlocProvider(
-    create: (context) => AdminEventBloc(eventRepository: eventRepository)
-      ..add(GetAllEventsEvent()),
-    child: AppWidget(),
-  ));
+  runApp(
+    BlocProvider(
+      create: (context) => AdminEventBloc(eventRepository: eventRepository)
+        ..add(GetAllEventsEvent()),
+      child: AppWidget(),
+    ),
+  );
 }
