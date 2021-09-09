@@ -155,7 +155,6 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                   onPressed: () {
                     //signup here
                     final form = _formKey.currentState;
-                    print(form);
                     if (form != null && form.validate()) {
                       form.save();
                       BlocProvider.of<AuthBloc>(context).add(SignUp(
