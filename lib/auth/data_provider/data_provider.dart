@@ -20,7 +20,11 @@ class AuthDataProvider {
 
     try {
       var response = await _dio.post(_baseUrl, data: data);
-      return User.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return User.fromJson(response.data);
+      } else {
+        return User.fromJson(response.data);
+      }
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }

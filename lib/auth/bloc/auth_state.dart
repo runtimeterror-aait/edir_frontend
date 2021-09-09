@@ -1,3 +1,5 @@
+import 'package:edir/auth/bloc/auth_event.dart';
+import 'package:edir/auth/models/login.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,6 +24,13 @@ class AuthLoaded extends AuthState {
   const AuthLoaded(this.userModel);
   @override
   List<Object> get props => [userModel];
+}
+
+class LoginLoaded extends AuthState {
+  const LoginLoaded();
+
+  @override
+  List<Object> get props => [];
 }
 
 class AuthError extends AuthState {

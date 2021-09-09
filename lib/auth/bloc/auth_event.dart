@@ -1,3 +1,4 @@
+import 'package:edir/auth/models/login.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,4 +16,16 @@ class SignUp extends AuthEvent {
 
   @override
   String toString() => 'User Created {course: $user}';
+}
+
+class LogIn extends AuthEvent {
+  final String email;
+  final String password;
+  LogIn(this.email, this.password);
+
+  @override
+  List<Object> get props => [email, password];
+
+  @override
+  String toString() => 'Logged in successfully';
 }

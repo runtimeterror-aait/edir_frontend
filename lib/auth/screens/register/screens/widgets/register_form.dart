@@ -10,6 +10,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
   final _formKey = GlobalKey<FormState>();
 
+  List<String> _userType = [
+    "a",
+    "u",
+  ];
+
+  Widget _returnUserType(String userType) {
+    if (userType == "a") {
+      return new Text("Edir Manager");
+    } else {
+      return new Text("Edir User");
+    }
+  }
+
   final Map<String, dynamic> _user = {};
   @override
   Widget build(BuildContext context) {
@@ -18,7 +31,12 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
         _showToast(context, "Registred Failed");
       }
       if (state is AuthLoaded) {
+        print(state.userModel.detail);
         _showToast(context, "Registred Succesfully");
+      }
+
+      if (state is AuthLoading) {
+        print("loading...");
       }
     }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       return Form(
@@ -39,6 +57,12 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                   onSaved: (value) {
                     this._user["full_name"] = value;
                   },
+                  validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return 'Please enter your full name';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: 'Full Name',
@@ -51,6 +75,12 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                 TextFormField(
                   onSaved: (value) {
                     this._user["email"] = value;
+                  },
+                  validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
                   },
                   decoration: InputDecoration(
                       isDense: true,
@@ -65,6 +95,12 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                   onSaved: (value) {
                     this._user["phone"] = value;
                   },
+                  validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: 'Phone number',
@@ -78,6 +114,12 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                   onSaved: (value) {
                     this._user["password"] = value;
                   },
+                  validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: 'Password',
@@ -88,12 +130,33 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                 const SizedBox(
                   height: 25,
                 ),
+                DropdownButton(
+                  isExpanded: true,
+                  itemHeight: 60,
+                  hint: Text(
+                    "I am",
+                  ),
+                  items:
+                      _userType.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: _returnUserType(value),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    this._user['role'] = value.toString();
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
                 ElevatedButton(
                   style: raisedButtonStyle,
                   onPressed: () {
                     //signup here
                     final form = _formKey.currentState;
-                    if (form != null) {
+                    print(form);
+                    if (form != null && form.validate()) {
                       form.save();
                       BlocProvider.of<AuthBloc>(context).add(SignUp(
                         User(
@@ -102,7 +165,7 @@ class RegisterForm extends StatelessWidget with SignInAndRegisterForm {
                           email: this._user['email'],
                           phone: this._user['phone'],
                           password: this._user['password'],
-                          role: "a",
+                          role: this._user['role'],
                         ),
                       ));
                       form.reset();

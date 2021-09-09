@@ -13,8 +13,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is SignUp) {
       try {
+        yield AuthLoading();
         await authRepository.signUp(event.user);
         yield AuthLoaded(event.user);
+      } catch (_) {
+        yield AuthError("Error creating user");
+      }
+    }
+
+    if (event is LogIn) {
+      try {
+        await authRepository.logIn(event.email, event.password);
+        yield LoginLoaded();
       } catch (_) {
         yield AuthError("Error creating user");
       }
