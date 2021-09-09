@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await authRepository.logIn(event.email, event.password);
         yield LoginLoaded();
       } catch (_) {
-        yield AuthError("Error creating user");
+        yield AuthError("Invalid credentail");
       }
     }
   }

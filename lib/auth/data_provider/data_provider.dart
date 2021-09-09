@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthDataProvider {
   final Dio _dio = Dio();
-  final String _baseUrl = 'http://localhost:8000/api/v1/auth/signup';
+  final String _baseUrl = 'http://localhost:8000/api/v1/auth';
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
   Future<User> signUp(User user) async {
@@ -19,7 +19,7 @@ class AuthDataProvider {
     };
 
     try {
-      var response = await _dio.post(_baseUrl, data: data);
+      var response = await _dio.post(_baseUrl + "/signup", data: data);
       if (response.statusCode == 200) {
         return User.fromJson(response.data);
       } else {
@@ -34,10 +34,9 @@ class AuthDataProvider {
     var data = {"email": email, "password": password};
 
     try {
-      var response = await _dio.post(_baseUrl, data: data);
+      var response = await _dio.post(_baseUrl + "/login", data: data);
       return Login.fromJson(response.data);
     } catch (error, stacktrace) {
-      print(error);
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
