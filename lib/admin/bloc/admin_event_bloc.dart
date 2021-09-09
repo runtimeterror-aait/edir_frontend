@@ -54,8 +54,9 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
       }
     } else if (event is UpdateEventEvent) {
       try {
-        await eventRepository.updateEvent(event.event, event.eventId);
         yield EventLoadingState();
+        await eventRepository.updateEvent(event.event, event.eventId);
+
         final List<Event> events = await eventRepository.getAllEvents();
         yield AllEventsLoadedState(events: events);
       } catch (_) {
