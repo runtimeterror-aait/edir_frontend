@@ -59,6 +59,9 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
               navService.pushNamed('/admin');
             }
           }
+          if (state is NotLoggedInUser) {
+            navService.pushNamed("/login");
+          }
         },
         child: Scaffold(
           appBar: AppBar(

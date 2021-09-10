@@ -2,6 +2,7 @@ import 'package:edir/admin/screens/admin_manage_edir/payment/admin_member_paymen
 import 'package:edir/auth/bloc/auth_bloc.dart';
 import 'package:edir/auth/bloc/auth_event.dart';
 import 'package:edir/auth/bloc/auth_state.dart';
+import 'package:edir/auth/repository/auth_repository.dart';
 import 'package:edir/core/appbar.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:edir/core/styles.dart';
@@ -10,6 +11,7 @@ import 'package:edir/user/screens/profile/user_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 class UserDashboardPage extends StatefulWidget {
   const UserDashboardPage({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class UserDashboardPage extends StatefulWidget {
   @override
   _UserDashboardPageState createState() => _UserDashboardPageState();
 }
+
+final AuthRepository authRepository = AuthRepository();
 
 class _UserDashboardPageState extends State<UserDashboardPage>
     with SignInAndRegisterForm, Styles {
@@ -32,6 +36,10 @@ class _UserDashboardPageState extends State<UserDashboardPage>
             if (user.role == "u") {
               navService.pushNamed('/user');
             }
+          }
+
+          if (state is NotLoggedInUser) {
+            navService.pushNamed("/login");
           }
         },
         child: Scaffold(
