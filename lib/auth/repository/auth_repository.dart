@@ -16,18 +16,6 @@ class AuthRepository {
   Future<void> addUser(Login login) async {
     return _provider.addUser(login);
   }
-
-  Future<void> logOut() {
-    return _provider.logout();
-  }
-
-  Future<bool> isLoggedIn() {
-    return _provider.isLoggedIn();
-  }
-
-  Future<Login> loggedInUser() {
-    return _provider.loggedInUser();
-  }
 }
 
 class NetworkError extends Error {}
