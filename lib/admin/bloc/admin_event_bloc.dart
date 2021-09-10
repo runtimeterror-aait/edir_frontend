@@ -11,14 +11,15 @@ part 'admin_event_event.dart';
 part 'admin_event_state.dart';
 
 class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
-  AdminEventRepository eventRepository;
+  AdminEventRepository eventRepository =
+      AdminEventRepository(AdminEventDataProvider());
 
   // Future<List<Event>> eventsMethon() async {
   //   final List<Event> events =  await eventRepository.getAllEvents(2);
   //   yeield events;
   // }
 
-  AdminEventBloc({required this.eventRepository}) : super(EventInitialState());
+  AdminEventBloc() : super(EventInitialState());
 
   @override
   Stream<AdminEventState> mapEventToState(

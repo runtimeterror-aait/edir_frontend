@@ -17,9 +17,7 @@ class AppBarSection extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
         elevation: this.elevation,
         iconTheme: IconThemeData(color: Colors.black),
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
+        backgroundColor: Colors.amber,
         title: Text(
           "$title",
           style: TextStyle(

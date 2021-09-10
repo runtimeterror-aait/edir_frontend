@@ -20,7 +20,17 @@ class AddPaymentState extends AdminPaymentState {}
 
 class RemovePaymentState extends AdminPaymentState {}
 
-class PaymentOperationFailedState extends AdminPaymentState {
+class GetAllPaymentOperationFailedState extends AdminPaymentState {
+  @override
+  List<Object> get props => [];
+}
+
+class RemovePaymentOperationFailedState extends AdminPaymentState {
+  @override
+  List<Object> get props => [];
+}
+
+class AddPaymentOperationFailedState extends AdminPaymentState {
   @override
   List<Object> get props => [];
 }

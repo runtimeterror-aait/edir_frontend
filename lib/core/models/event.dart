@@ -2,16 +2,14 @@ class Event {
   final String title;
   final String description;
   final DateTime eventDate;
-  final int edirId;
+  final int? edirId;
   int? id;
   Event(
       {required this.title,
       required this.description,
       required this.eventDate,
-      required this.edirId,
-      id}) {
-    this.id = id;
-  }
+      this.edirId,
+      this.id});
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(

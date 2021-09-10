@@ -18,15 +18,15 @@ class Payment {
   });
 
   final String note;
-  final int payment;
+  final double payment;
   final int memberId;
-  final String paymentDate;
+  final DateTime paymentDate;
 
   Payment copyWith({
     String? note,
-    int? payment,
+    double? payment,
     int? memberId,
-    String? paymentDate,
+    DateTime? paymentDate,
   }) =>
       Payment(
         note: note ?? this.note,
@@ -39,13 +39,13 @@ class Payment {
         note: json["note"],
         payment: json["payment"],
         memberId: json["member_id"],
-        paymentDate: json["payment_date"],
+        paymentDate: DateTime.parse(json["payment_date"]),
       );
 
   Map<String, dynamic> toJson() => {
         "note": note,
         "payment": payment,
         "member_id": memberId,
-        "payment_date": paymentDate,
+        "payment_date": paymentDate.toIso8601String(),
       };
 }

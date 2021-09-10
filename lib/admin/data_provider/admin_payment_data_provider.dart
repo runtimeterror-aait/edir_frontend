@@ -104,8 +104,8 @@ main(List<String> args) async {
       note: "This is a note",
       payment: 100,
       memberId: 22,
-      paymentDate: "paymentDate");
+      paymentDate: DateTime.now());
 
   AdminPaymentDataProvider dataprovider = AdminPaymentDataProvider();
-  dataprovider.getAllPayments(22);
+  dataprovider.getAllPayments(28);
 }

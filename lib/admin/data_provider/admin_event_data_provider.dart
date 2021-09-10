@@ -11,7 +11,7 @@ class AdminEventDataProvider with Credentials {
 // Create Event
   Future<String> createEvent(Event event) async {
     print("creating..");
-
+    Edir edir = await getEdir();
     final url = Uri.parse("$_baseUrl/");
     final http.Response response = await http.post(
       url,
@@ -24,7 +24,7 @@ class AdminEventDataProvider with Credentials {
         "title": event.title,
         "description": event.description,
         "event_date": event.eventDate.toIso8601String(),
-        "edir_id": event.edirId,
+        "edir_id": edir.id,
       }),
     );
 

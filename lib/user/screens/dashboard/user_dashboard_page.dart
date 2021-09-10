@@ -113,13 +113,13 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                   isAlwaysShown: true,
                   child: ListView(
                     children: [
-                      for (int i = 0; i < 10; i++)
-                        MemberPayment(
-                          moneyAmount: 100,
-                          paymentNote: "payment note",
-                          selectedDate: DateTime.now(),
-                          isAdmin: false,
-                        ),
+                      // for (int i = 0; i < 10; i++)
+                      //   MemberPayment(
+                      //     moneyAmount: 100,
+                      //     paymentNote: "payment note",
+                      //     selectedDate: DateTime.now(),
+                      //     isAdmin: false,
+                      //   ),
                     ],
                   ),
                 )),
