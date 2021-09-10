@@ -20,6 +20,13 @@ class UserLoaded extends UserState {
   List<Object> get props => [userModel];
 }
 
+class UserDataLoaded extends UserState {
+  final User userModel;
+  const UserDataLoaded(this.userModel);
+  @override
+  List<Object> get props => [userModel];
+}
+
 class UserError extends UserState {
   final String message;
   const UserError(this.message);
