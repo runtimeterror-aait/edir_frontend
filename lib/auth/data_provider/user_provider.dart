@@ -29,8 +29,8 @@ class UserDataProvider {
 
   Future<void> deleteUser() async {
     try {
-      await _auth.logout();
       await _dio.delete(_baseUrl);
+      await _auth.logout();
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
