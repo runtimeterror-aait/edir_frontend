@@ -31,23 +31,6 @@ class _AdminManagePaymentPageState extends State<AdminManagePaymentPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 30,
-          ),
-          Container(
-            height: 60,
-            child: TextFormField(
-              decoration: InputDecoration(
-                isDense: true,
-                suffix: IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                labelText: 'Email or username',
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              autocorrect: false,
-            ),
-          ),
-          SizedBox(
             height: 50,
           ),
           Row(
