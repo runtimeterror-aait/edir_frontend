@@ -64,7 +64,6 @@ class AppWidget extends StatelessWidget {
               onGenerateRoute: _routes(),
               title: 'edir',
               navigatorKey: NavigationService.navigationKey,
-              // home: SplashPage(),
               darkTheme: _dark,
               theme: _light,
               themeMode: ThemeMode.dark,

@@ -54,7 +54,7 @@ class AuthDataProvider {
   }
 
   Future<void> logout() async {
-    await _storage.delete(key: "user");
+    await _storage.deleteAll();
   }
 
   Future<bool> isLoggedIn() async {

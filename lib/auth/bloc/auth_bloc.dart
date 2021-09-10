@@ -38,5 +38,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield NotLoggedInUser();
       }
     }
+
+    if (event is LogOut) {
+      try {
+        await authRepository.logOut();
+        yield LogoutSucess();
+      } catch (error) {
+        yield LogoutError(error.toString());
+      }
+    }
   }
 }

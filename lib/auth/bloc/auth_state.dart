@@ -59,3 +59,22 @@ class NotLoggedInUser extends AuthState {
   @override
   String toString() => "not logged in";
 }
+
+class LogoutSucess extends AuthState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => "logged out";
+}
+
+class LogoutError extends AuthState {
+  final String msg;
+
+  LogoutError(this.msg);
+  @override
+  List<Object> get props => [msg];
+
+  @override
+  String toString() => msg;
+}
