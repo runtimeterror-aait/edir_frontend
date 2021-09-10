@@ -1,4 +1,7 @@
+import 'package:edir/admin/bloc/admin_member_bloc.dart';
 import 'package:edir/admin/bloc/admin_payment_bloc.dart';
+import 'package:edir/admin/data_provider/admin_members_data_provider.dart';
+import 'package:edir/admin/repository/admin_members_repository.dart';
 import 'package:edir/bloc_observer.dart';
 import 'package:edir/core/app_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +15,8 @@ void main() {
   // Bloc.observer = SimpleBlocObserver();
   // final AdminEventRepository eventRepository =
   //     AdminEventRepository(AdminEventDataProvider());
-
+  AdminMembersRepository membersRepository =
+      AdminMembersRepository(AdminMembersDataProvider());
   runApp(
     // AdminEventBloc and AdminPaymentBloc providers
     MultiBlocProvider(
@@ -22,6 +26,10 @@ void main() {
         ),
         BlocProvider(
           create: (context) => AdminPaymentBloc(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AdminMemberBloc(membersRepository: membersRepository),
         ),
       ],
       child: AppWidget(),
