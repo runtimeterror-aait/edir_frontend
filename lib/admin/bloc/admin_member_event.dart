@@ -22,18 +22,18 @@ class ApproveMemberEvent extends AdminMemberEvent {
   List<Object> get props => [memberId];
 }
 
-class ReloadMemberEvent extends AdminMemberEvent {
-  ReloadMemberEvent();
+// class ReloadMemberEvent extends AdminMemberEvent {
+//   ReloadMemberEvent();
 
-  @override
-  List<Object> get props => [];
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-class ReloadApprovalsEvent extends AdminMemberEvent {
-  ReloadApprovalsEvent();
-  @override
-  List<Object> get props => [];
-}
+// class ReloadApprovalsEvent extends AdminMemberEvent {
+//   ReloadApprovalsEvent();
+//   @override
+//   List<Object> get props => [];
+// }
 
 class RemoveMemberEvent extends AdminMemberEvent {
   final int memberId;
