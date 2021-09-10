@@ -7,6 +7,7 @@ import 'package:edir/admin/repository/admin_members_repository.dart';
 import 'package:edir/admin/screens/admin_manage_edir/home/admin_home_page.dart';
 import 'package:edir/admin/screens/admin_manage_edir/members/admin_manage_members_page.dart';
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_manage_payment_page.dart';
+import 'package:edir/admin/screens/create_edir/create_edir_page.dart';
 import 'package:edir/admin/screens/create_edir/widgets/create_edir_form.dart';
 import 'package:edir/admin/screens/dashboard/widgets/dashboard_card.dart';
 import 'package:edir/auth/bloc/auth_bloc.dart';
@@ -73,12 +74,31 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
             backgroundColor: Colors.amber,
             actions: [
               IconButton(
-                onPressed: () {},
+                  onPressed: () {
+                    settingAlertDialog(context);
+                  },
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                  )),
+              IconButton(
+                onPressed: () {
+                  BlocProvider.of<AuthBloc>(context).add(LogOut());
+                  if (BlocProvider.of<AuthBloc>(context).state
+                      is LogoutSucess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignInPage(),
+                      ),
+                    );
+                  }
+                },
                 icon: Icon(
-                  Icons.settings,
+                  Icons.logout,
                   color: Colors.black,
                 ),
-              ),
+              )
             ],
           ),
           body: Container(
@@ -100,6 +120,82 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
               onTap: _onTapChangePage),
         ),
       ),
+    );
+  }
+
+  alertDialog(
+    BuildContext context,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            // TODO: implement listener
+            if (state is LogoutSucess) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SignInPage()));
+            }
+          },
+          child: AlertDialog(
+            title: Text('Logout'),
+            content: Text('Are you sure you want to logout?'),
+            actions: <Widget>[
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.amber)),
+                child: Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () {
+                  BlocProvider.of<AuthBloc>(context).add(LogOut());
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  settingAlertDialog(
+    BuildContext context,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            title: Text('Account setting'),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.amber)),
+                  child: Text(
+                    'Edit edir',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateEdirPage()));
+                  },
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.amber)),
+                  child: Text(
+                    'Edit Account',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ));
+      },
     );
   }
 }
