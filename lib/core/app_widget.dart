@@ -63,6 +63,8 @@ class AppWidget extends StatelessWidget {
                 navService.pushNamed('/user');
               }
             }
+
+            print(state);
             return MaterialApp(
               onGenerateRoute: _routes(),
               title: 'edir',
@@ -92,7 +94,7 @@ class AppWidget extends StatelessWidget {
           screen = SignInPage();
           break;
         case "/admin":
-          screen = AdminHomePage();
+          screen = AdminManageEdirPage();
           break;
         case "/user":
           screen = UserDashboardPage();
