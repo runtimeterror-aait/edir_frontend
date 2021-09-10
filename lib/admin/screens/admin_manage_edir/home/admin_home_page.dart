@@ -20,7 +20,7 @@ class _AdminHomePageState extends State<AdminHomePage> with Styles {
   @override
   void initState() {
     // TODO: implement initState
-    BlocProvider.of<AdminEventBloc>(context).add(GetAllEventsEvent());
+    BlocProvider.of<AdminEventBloc>(context)..add(GetAllEventsEvent());
     super.initState();
   }
 

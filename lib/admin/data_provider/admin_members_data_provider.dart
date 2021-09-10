@@ -14,11 +14,13 @@ class AdminMembersDataProvider with Credentials {
     final urlEdir =
         Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
 
+    final t = await token();
+
     final responseEdir = await http.get(
       urlEdir,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $t',
       },
     );
     if (responseEdir.statusCode == 200) {
@@ -35,6 +37,8 @@ class AdminMembersDataProvider with Credentials {
 // Get all members
   Future<List<Member>> getAllMembers() async {
     Edir edir = await getEdir();
+    final t = await token();
+
     final url = Uri.parse(
         "http://127.0.0.1:8000/api/v1/members/${edir.id}?skip=0&limit=10");
 
@@ -43,7 +47,7 @@ class AdminMembersDataProvider with Credentials {
       headers: <String, String>{
         "Content-Type": "application/json",
         'accept': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $t',
       },
     );
 
@@ -63,6 +67,7 @@ class AdminMembersDataProvider with Credentials {
   Future<String> approveMember(int memberId) async {
     print("approving..");
     Edir edir = await getEdir();
+    final t = await token();
 
     final url = Uri.parse("$_baseUrl/$memberId");
     final http.Response response = await http.put(
@@ -70,7 +75,7 @@ class AdminMembersDataProvider with Credentials {
       headers: <String, String>{
         "Content-Type": "application/json",
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
       body: jsonEncode(
         {"status": "a"},

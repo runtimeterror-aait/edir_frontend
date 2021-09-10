@@ -1,4 +1,8 @@
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_member_payment_page.dart';
+import 'package:edir/auth/bloc/auth_bloc.dart';
+import 'package:edir/auth/bloc/auth_event.dart';
+import 'package:edir/auth/bloc/auth_state.dart';
+import 'package:edir/auth/repository/auth_repository.dart';
 import 'package:edir/core/appbar.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:edir/core/styles.dart';
@@ -6,6 +10,8 @@ import 'package:edir/user/screens/dashboard/widgets/user_dashboard_events_card.d
 import 'package:edir/user/screens/profile/user_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 class UserDashboardPage extends StatefulWidget {
   const UserDashboardPage({Key? key}) : super(key: key);
@@ -14,117 +20,139 @@ class UserDashboardPage extends StatefulWidget {
   _UserDashboardPageState createState() => _UserDashboardPageState();
 }
 
+final AuthRepository authRepository = AuthRepository();
+
 class _UserDashboardPageState extends State<UserDashboardPage>
     with SignInAndRegisterForm, Styles {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-        title: Text("Welcome USER"),
-        leading: Image.asset(logoImageWithoutName),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserProfilePage()));
-            },
-            child: Image.asset('assets/images/business_man.png'),
-          )
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10,
+    return BlocProvider(
+      create: (context) =>
+          AuthBloc(authRepository: authRepository)..add(GetLoggedInUser()),
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is LoggedInUser) {
+            var user = state.login;
+            if (user.role == "u") {
+              navService.pushNamed('/user');
+            }
+          }
+
+          if (state is NotLoggedInUser) {
+            navService.pushNamed("/login");
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: Colors.black,
+                ),
+            title: Text("Welcome USER"),
+            leading: Image.asset(logoImageWithoutName),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserProfilePage()));
+                },
+                child: Image.asset('assets/images/business_man.png'),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 0, 10),
-            child: Text("Recent events", style: textStyle_2),
-          ),
-          UserDashboardEventsCard(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Total Payments",
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "ETB 300",
-                  style: textStyleBold_3,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 5, 0, 10),
+                child: Text("Recent events", style: textStyle_2),
+              ),
+              UserDashboardEventsCard(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        _joinEdirDialog(context);
-                      },
-                      child: Text(
-                        "Join Edir",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.blueGrey),
-                        //
-                      ),
+                    Text(
+                      "Total Payments",
                     ),
                     SizedBox(
-                      width: 20,
+                      height: 5,
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "My Edirs",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.blueGrey),
-                      ),
+                    Text(
+                      "ETB 300",
+                      style: textStyleBold_3,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            _joinEdirDialog(context);
+                          },
+                          child: Text(
+                            "Join Edir",
+                            style: TextStyle(color: Colors.amber),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blueGrey),
+                            //
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            "My Edirs",
+                            style: TextStyle(color: Colors.amber),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blueGrey),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Divider(
+                height: 30,
+              ),
+              Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Scrollbar(
+                      isAlwaysShown: true,
+                      child: ListView(
+                        children: [
+                          // for (int i = 0; i < 10; i++)
+                          //   MemberPayment(
+                          //     moneyAmount: 100,
+                          //     paymentNote: "payment note",
+                          //     selectedDate: DateTime.now(),
+                          //     isAdmin: false,
+                          //   ),
+                        ],
+                      ),
+                    )),
+              ),
+            ],
           ),
-          Divider(
-            height: 30,
-          ),
-          Expanded(
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Scrollbar(
-                  isAlwaysShown: true,
-                  child: ListView(
-                    children: [
-                      // for (int i = 0; i < 10; i++)
-                      //   MemberPayment(
-                      //     moneyAmount: 100,
-                      //     paymentNote: "payment note",
-                      //     selectedDate: DateTime.now(),
-                      //     isAdmin: false,
-                      //   ),
-                    ],
-                  ),
-                )),
-          ),
-        ],
+        ),
       ),
     );
   }

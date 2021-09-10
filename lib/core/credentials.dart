@@ -1,4 +1,11 @@
+import 'package:edir/auth/models/login.dart';
+import 'package:edir/auth/data_provider/data_provider.dart';
+
 class Credentials {
-  final token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzE3MTkzODEsImlhdCI6MTYzMTI4NzM4MSwic3ViIjoibGl5dUBhZG1pbi5jb20ifQ.TjtxRMyFIckAnrJvsl8n2_g3icGBbTajxrSX0D-YFBk";
+  final AuthDataProvider auth = AuthDataProvider();
+
+  Future<String> token() async {
+    Login user = await auth.loggedInUser();
+    return user.token;
+  }
 }
