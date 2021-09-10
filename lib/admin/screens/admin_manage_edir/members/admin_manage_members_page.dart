@@ -1,50 +1,127 @@
 import 'dart:ui';
 
+import 'package:edir/admin/bloc/admin_event_bloc.dart';
+import 'package:edir/admin/bloc/admin_member_bloc.dart';
+import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
+import 'package:edir/admin/data_provider/admin_members_data_provider.dart';
+import 'package:edir/admin/repository/admin_members_repository.dart';
 import 'package:edir/core/appbar.dart';
+import 'package:edir/core/models/member.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:edir/core/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AdminManageMembersPage extends StatelessWidget
-    with Styles, SignInAndRegisterForm {
+class AdminManageMembersPage extends StatefulWidget with SignInAndRegisterForm {
   AdminManageMembersPage({Key? key}) : super(key: key);
+
+  @override
+  State<AdminManageMembersPage> createState() => _AdminManageMembersPageState();
+}
+
+class _AdminManageMembersPageState extends State<AdminManageMembersPage>
+    with Styles {
+  // AdminMembersRepository repository =
+  //     AdminMembersRepository(AdminMembersDataProvider());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<AdminMemberBloc>(context).add(GetAllMembersEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-      // decoration: BoxDecoration(
-      //   color: Colors.black12,
-      // ),
+      padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
         children: [
           Container(
-            height: 250,
-            margin: const EdgeInsets.only(bottom: 30),
+            height: 300,
+            margin: const EdgeInsets.only(bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Pending Approval",
-                  style: textStyle_2.copyWith(
-                    color: MaterialStateColor.resolveWith(
-                        (states) => Colors.amber),
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      "Pending Approvals",
+                      style: textStyle_2.copyWith(
+                        color: MaterialStateColor.resolveWith(
+                            (states) => Colors.amber),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(Icons.person_add, color: Colors.grey),
+                    Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        BlocProvider.of<AdminMemberBloc>(context)
+                          ..add(GetAllMembersEvent());
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: Colors.amber,
+                      ),
+                    )
+                  ],
                 ),
                 Divider(
-                  height: 50,
+                  height: 20,
                   color: Colors.amber,
                 ),
                 Expanded(
-                  child: Scrollbar(
-                    isAlwaysShown: true,
-                    child: ListView(
-                      padding: const EdgeInsets.all(10),
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          PendingApproval(memberName: "Abebe Abera"),
-                      ],
-                    ),
+                  child: BlocBuilder<AdminMemberBloc, AdminMemberState>(
+                    builder: (context, state) {
+                      int pendingCounter = 0;
+
+                      if (state is MemberLoadingState) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.amber,
+                          ),
+                        );
+                      } else if (state is AllMembersLoadedState) {
+                        List<Member> members = state.members;
+                        for (Member member in members) {
+                          if (member.status == "p") {
+                            pendingCounter++;
+                          }
+                        }
+                        if (members.length == 0) {
+                          return Center(
+                            child: Text("No pending approvals."),
+                          );
+                        } else if (members.length > 0) {
+                          return ListView(
+                            padding: const EdgeInsets.all(10),
+                            children: [
+                              for (int i = members.length - 1; i >= 0; i--)
+                                if (members[i].status == "p")
+                                  PendingApproval(
+                                    memberName: members[i].user.fullName,
+                                    memberId: members[i].id,
+                                  ),
+                              if (pendingCounter == 0)
+                                Center(
+                                  child: Text(
+                                    "No pending approvals.",
+                                  ),
+                                )
+                            ],
+                          );
+                        }
+                        return Center(
+                          child: Text("No pending approvals."),
+                        );
+                      }
+                      return Text(
+                        "Couldn't fetch events.",
+                        style: TextStyle(color: Colors.red),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -64,30 +141,60 @@ class AdminManageMembersPage extends StatelessWidget
                               (states) => Colors.amber),
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.people,
+                        color: Colors.grey,
+                      ),
                       Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.person_add,
-                          color: Colors.amber,
-                        ),
-                      )
                     ],
                   ),
                   Divider(
-                    height: 50,
+                    height: 20,
                     color: Colors.amber,
                   ),
                   Expanded(
-                    child: Scrollbar(
-                      isAlwaysShown: true,
-                      child: ListView(
-                        padding: const EdgeInsets.all(10),
-                        children: [
-                          for (int i = 0; i < 10; i++)
-                            Members(memberName: "Abebe Abera"),
-                        ],
-                      ),
+                    child: BlocBuilder<AdminMemberBloc, AdminMemberState>(
+                      builder: (context, state) {
+                        if (state is MemberLoadingState) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.amber,
+                            ),
+                          );
+                        }
+
+                        if (state is AllMembersLoadedState) {
+                          List<Member> members = state.members;
+                          if (members.length == 0) {
+                            return Center(
+                              child: Text(
+                                "No members.",
+                              ),
+                            );
+                          }
+                          return ListView(
+                            padding: const EdgeInsets.all(10),
+                            children: [
+                              for (int i = members.length - 1; i >= 0; i--)
+                                if (state.members[i].status == "a")
+                                  Members(
+                                    memberName:
+                                        "${state.members[i].user.fullName}",
+                                    memberId: state.members[i].id,
+                                  ),
+                            ],
+                          );
+                        }
+                        return Center(
+                          child: Text(
+                            "Couldn't fetch events.",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -101,9 +208,10 @@ class AdminManageMembersPage extends StatelessWidget
 }
 
 class PendingApproval extends StatelessWidget with SignInAndRegisterForm {
-  PendingApproval({Key? key, required this.memberName}) : super(key: key);
+  PendingApproval({Key? key, required this.memberName, required this.memberId})
+      : super(key: key);
   final String memberName;
-
+  final int memberId;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -116,7 +224,10 @@ class PendingApproval extends StatelessWidget with SignInAndRegisterForm {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<AdminMemberBloc>(context)
+                    .add(ApproveMemberEvent(memberId: memberId));
+              },
               child: Text(
                 "Approve",
               ),
@@ -128,7 +239,10 @@ class PendingApproval extends StatelessWidget with SignInAndRegisterForm {
               width: 5,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<AdminMemberBloc>(context)
+                    .add(RemoveMemberEvent(memberId: memberId));
+              },
               child: Text(
                 "Cancel",
                 style: TextStyle(color: Colors.grey[200]),
@@ -149,8 +263,10 @@ class PendingApproval extends StatelessWidget with SignInAndRegisterForm {
 }
 
 class Members extends StatelessWidget with SignInAndRegisterForm {
-  Members({Key? key, required this.memberName}) : super(key: key);
+  Members({Key? key, required this.memberName, required this.memberId})
+      : super(key: key);
   final String memberName;
+  final int memberId;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -163,7 +279,10 @@ class Members extends StatelessWidget with SignInAndRegisterForm {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<AdminMemberBloc>(context)
+                    .add(RemoveMemberEvent(memberId: memberId));
+              },
               child: Text(
                 "Remove",
                 style: TextStyle(color: Colors.grey[200]),
