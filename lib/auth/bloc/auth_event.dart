@@ -29,3 +29,8 @@ class LogIn extends AuthEvent {
   @override
   String toString() => 'Logged in successfully';
 }
+
+class GetLoggedInUser extends AuthEvent {
+  @override
+  List<Object> get props => [];
+}

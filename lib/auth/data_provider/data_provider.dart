@@ -35,9 +35,11 @@ class AuthDataProvider {
 
     try {
       var response = await _dio.post(_baseUrl + "/login", data: data);
+      await _storage.write(key: "user", value: response.data.toString());
       return Login.fromJson(response.data);
-    } catch (error, stacktrace) {
-      throw Exception("Exception occured: $error stackTrace: $stacktrace");
+    } catch (error) {
+      print(error);
+      throw Exception("Exception occured: $error");
     }
   }
 
@@ -57,5 +59,14 @@ class AuthDataProvider {
     }
 
     return true;
+  }
+
+  Future<Login> loggedInUser() async {
+    var user = await _storage.read(key: "user");
+    if (user == null) {
+      throw Exception("User not logged in");
+    } else {
+      return Login.fromJson(jsonDecode(user));
+    }
   }
 }

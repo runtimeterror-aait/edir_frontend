@@ -24,6 +24,10 @@ class AuthRepository {
   Future<bool> isLoggedIn() {
     return _provider.isLoggedIn();
   }
+
+  Future<Login> loggedInUser() {
+    return _provider.loggedInUser();
+  }
 }
 
 class NetworkError extends Error {}

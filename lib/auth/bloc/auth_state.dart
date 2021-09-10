@@ -38,4 +38,23 @@ class AuthError extends AuthState {
   const AuthError(this.message);
   @override
   List<Object> get props => [message];
+
+  @override
+  String toString() => "error: " + message;
+}
+
+class LoggedInUser extends AuthState {
+  final Login login;
+  const LoggedInUser(this.login);
+  @override
+  List<Object> get props => [login];
+}
+
+class NotLoggedInUser extends AuthState {
+  const NotLoggedInUser();
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => "not logged in";
 }

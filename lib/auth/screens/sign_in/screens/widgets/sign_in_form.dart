@@ -12,8 +12,13 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        // TODO: implement listener
-        print(state);
+        if (state is LoginLoaded) {
+          print("logged in");
+        }
+
+        if (state is AuthError) {
+          _showToast(context, state.toString());
+        }
       },
       child: Form(
           key: _formKey,
@@ -118,6 +123,17 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
               ],
             ),
           )),
+    );
+  }
+
+  void _showToast(BuildContext context, String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 }
