@@ -53,18 +53,19 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
           AuthBloc(authRepository: authRepository)..add(GetLoggedInUser()),
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          // if (state is LoggedInUser) {
-          //   var user = state.login;
-          //   if (user.role == "a") {
-          //     navService.pushNamed('/admin');
-          //   }
-          // }
-          // if (state is NotLoggedInUser) {
-          //   navService.pushNamed("/login");
-          // }
+          if (state is LoggedInUser) {
+            var user = state.login;
+            if (user.role == "u") {
+              navService.pushNamed('/user');
+            }
+          }
+          if (state is NotLoggedInUser) {
+            navService.pushNamed("/login");
+          }
         },
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(
               "Metebaber",
               style: TextStyle(color: Colors.black87),

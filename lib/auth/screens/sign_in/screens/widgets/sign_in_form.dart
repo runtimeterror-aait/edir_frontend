@@ -16,9 +16,9 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
         if (state is LoginLoaded) {
           var login = state.login;
           if (login.role == "a") {
-            navService.pushNamed("/admin");
+            navService.pushNamedAndRemoveUntil("/admin");
           } else {
-            navService.pushNamed("/user");
+            navService.pushNamedAndRemoveUntil("/user");
           }
         }
 
