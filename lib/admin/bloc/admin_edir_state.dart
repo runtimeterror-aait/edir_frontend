@@ -9,8 +9,13 @@ abstract class AdminEdirState extends Equatable {
 
 class AdminEdirInitial extends AdminEdirState {}
 
-class AllEdirsLoadedState extends AdminEdirState {}
+class EdirsLoadedState extends AdminEdirState {
+  Edir edir;
+  EdirsLoadedState({required this.edir});
+}
 
 class EdirsLoadingState extends AdminEdirState {}
 
-class AddEdirState extends AdminEdirState {}
+class CreateEdirState extends AdminEdirState {}
+
+class EdirOperationFailedState extends AdminEdirState {}

@@ -20,10 +20,27 @@ class Edir {
 
   String name;
   double initialDeposit;
-  int ownerId;
-  int id;
+  int? ownerId;
+  int? id;
   String paymentFrequency;
-  String username;
+  String? username;
+
+  Edir copyWith({
+    String? name,
+    double? initialDeposit,
+    int? ownerId,
+    int? id,
+    String? paymentFrequency,
+    String? username,
+  }) =>
+      Edir(
+        name: name ?? this.name,
+        initialDeposit: initialDeposit ?? this.initialDeposit,
+        ownerId: ownerId ?? this.ownerId,
+        id: id ?? this.id,
+        paymentFrequency: paymentFrequency ?? this.paymentFrequency,
+        username: username ?? this.username,
+      );
 
   factory Edir.fromJson(Map<String, dynamic> json) => Edir(
         name: json["name"],
