@@ -18,6 +18,13 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> with Styles {
   @override
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<AdminEventBloc>(context).add(GetAllEventsEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ScrollController? _controller;
     final AdminEventBloc adminEventBloc =
@@ -181,7 +188,7 @@ class __ManageableEventsState extends State<_ManageableEvents> with Styles {
                           BlocProvider.of<AdminEventBloc>(this.context).add(
                             DeleteEvent(
                               widget.eventId,
-                              widget.event.edirId,
+                              widget.event.edirId!,
                             ),
                           );
                           Navigator.pop(context);

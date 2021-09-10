@@ -21,11 +21,15 @@ class AdminMembersDataProvider with Credentials {
         'Authorization': 'Bearer $token',
       },
     );
-
-    final edir = Edir.fromJson(
-      jsonDecode(responseEdir.body),
-    );
-    return edir;
+    if (responseEdir.statusCode == 200) {
+      final edir = Edir.fromJson(
+        jsonDecode(responseEdir.body),
+      );
+      return edir;
+    } else {
+      print(responseEdir.statusCode);
+      throw Exception("Could not fetch edir");
+    }
   }
 
 // Get all members

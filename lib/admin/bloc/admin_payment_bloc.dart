@@ -24,18 +24,20 @@ class AdminPaymentBloc extends Bloc<AdminPaymentEvent, AdminPaymentState> {
         yield PaymentsLoadingState();
         List<Payment> payments =
             await paymentRepository.getAllPayments(event.memberId);
+
         yield AllPaymentsLoadedState(payments: payments);
       } catch (_) {
-        yield PaymentOperationFailedState();
+        yield GetAllPaymentOperationFailedState();
       }
     } else if (event is AddPaymentEvent) {
       try {
         yield PaymentsLoadingState();
+        await paymentRepository.addPayment(event.memberId, event.payment);
         List<Payment> payments =
             await paymentRepository.getAllPayments(event.memberId);
         yield AllPaymentsLoadedState(payments: payments);
       } catch (_) {
-        yield PaymentOperationFailedState();
+        yield AddPaymentOperationFailedState();
       }
     } else if (event is RemovePaymentEvent) {
       try {
@@ -45,7 +47,7 @@ class AdminPaymentBloc extends Bloc<AdminPaymentEvent, AdminPaymentState> {
             await paymentRepository.getAllPayments(event.memberId);
         yield AllPaymentsLoadedState(payments: payments);
       } catch (_) {
-        yield PaymentOperationFailedState();
+        yield RemovePaymentOperationFailedState();
       }
     }
   }

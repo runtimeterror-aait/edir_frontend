@@ -11,9 +11,9 @@ class AdminMemberInitial extends AdminMemberState {}
 
 class MemberLoadingState extends AdminMemberState {}
 
-class MemberLoadingApprovalsState extends AdminMemberState {}
+// class MemberLoadingApprovalsState extends AdminMemberState {}
 
-class MemberLoadingMembersState extends AdminMemberState {}
+// class MemberLoadingMembersState extends AdminMemberState {}
 
 class AllMembersLoadedState extends AdminMemberState {
   final List<Member> members;

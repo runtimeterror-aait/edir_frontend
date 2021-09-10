@@ -190,7 +190,7 @@ class _AdminManageMembersPageState extends State<AdminManageMembersPage>
                         }
                         return Center(
                           child: Text(
-                            "Couldn't fetch events.",
+                            "Couldn't fetch members.",
                             style: TextStyle(color: Colors.red),
                           ),
                         );

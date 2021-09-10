@@ -1,4 +1,4 @@
 class Credentials {
   final token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzEzOTYxMjYsImlhdCI6MTYzMDk2NDEyNiwic3ViIjoibGl5dWFkbWluQGdtYWlsLmNvbSJ9.PTE2mYsS4xS7BMDfgRxouHXc09SVFsiAxoYkpKrPmXY";
+      "eeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzE3MTY0MzQsImlhdCI6MTYzMTI4NDQzNCwic3ViIjoibGl5dUBhZG1pbi5jb20ifQ.cfkcIrvEKGVRkjz7MKqjB44rPfj6W-Pv_U6QbVkWC9M";
 }
