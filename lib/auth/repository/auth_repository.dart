@@ -1,3 +1,4 @@
+import 'package:edir/auth/bloc/auth_event.dart';
 import 'package:edir/auth/models/login.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:edir/auth/data_provider/data_provider.dart';
@@ -15,6 +16,10 @@ class AuthRepository {
 
   Future<void> addUser(Login login) async {
     return _provider.addUser(login);
+  }
+
+  Future<void> LogOut(Login login) async {
+    return _provider.logout();
   }
 }
 

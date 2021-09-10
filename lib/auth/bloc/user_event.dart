@@ -19,6 +19,8 @@ class UpdateUser extends UserEvent {
 }
 
 class LoggedInUserData extends UserState {
+  final User user;
+  LoggedInUserData(this.user);
   @override
   List<Object> get props => [];
 }

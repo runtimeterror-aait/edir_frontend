@@ -2,18 +2,37 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:edir/auth/models/user.dart';
+import 'package:edir/auth/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
+  final UserRepository userRepository;
+
   UserBloc() : super(UserInitial());
 
   @override
   Stream<UserState> mapEventToState(
     UserEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is UpdateUser) {
+      try {
+        yield UserLoading();
+        var user = await userRepository.updateUser(event.user);
+        yield UserLoaded(user);
+      } catch (error) {
+        yield UserError(error.toString());
+      }
+    }
+
+    if (event is LoggedInUserData) {
+      try {
+        yield UserLoading();
+        var user = await userRepository.loggedInUserData();
+        yield UserDataLoaded(user);
+      } catch (error) {}
+    }
   }
 }
