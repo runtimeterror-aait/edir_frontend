@@ -3,6 +3,7 @@ import 'package:edir/auth/bloc/bloc.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 class SignInForm extends StatelessWidget with SignInAndRegisterForm {
   final _formKey = GlobalKey<FormState>();
@@ -13,8 +14,12 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginLoaded) {
-          BlocProvider.of<AuthBloc>(context).add(GetLoggedInUser());
-          print(state);
+          var login = state.login;
+          if (login.role == "a") {
+            navService.pushNamed("/admin");
+          } else {
+            navService.pushNamed("/user");
+          }
         }
 
         if (state is AuthError) {

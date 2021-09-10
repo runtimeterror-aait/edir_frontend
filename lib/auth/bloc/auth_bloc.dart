@@ -22,8 +22,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (event is LogIn) {
       try {
-        await authRepository.logIn(event.email, event.password);
-        yield LoginLoaded();
+        var login = await authRepository.logIn(event.email, event.password);
+        yield LoginLoaded(login);
       } catch (error) {
         yield AuthError("Invalid credentials");
       }

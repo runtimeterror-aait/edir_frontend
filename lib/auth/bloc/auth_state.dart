@@ -27,10 +27,11 @@ class AuthLoaded extends AuthState {
 }
 
 class LoginLoaded extends AuthState {
-  const LoginLoaded();
+  final Login login;
+  const LoginLoaded(this.login);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [login];
 }
 
 class AuthError extends AuthState {
