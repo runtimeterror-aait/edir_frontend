@@ -129,6 +129,8 @@ class _CreateEventCardState extends State<CreateEventCard> {
                             .add(CreateEventEvent(event));
 
                         FocusManager.instance.primaryFocus?.unfocus();
+
+                        _eventFormKey.currentState!.reset();
                       }
                     },
                     child: Text(

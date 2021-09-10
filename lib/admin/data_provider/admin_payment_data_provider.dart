@@ -12,11 +12,13 @@ class AdminPaymentDataProvider with Credentials {
   Future<Edir> getEdir() async {
     final urlEdir =
         Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
+    final t = await token();
+
     final responseEdir = await http.get(
       urlEdir,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
 
@@ -28,12 +30,14 @@ class AdminPaymentDataProvider with Credentials {
 
   Future<List<Payment>> getAllPayments(int memberId) async {
     Edir edir = await getEdir();
+    final t = await token();
+
     final url = Uri.parse("$_baseUrl/${edir.id}/$memberId");
     http.Response response = await http.get(
       url,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
 
@@ -51,12 +55,14 @@ class AdminPaymentDataProvider with Credentials {
 
   Future<String> addPayment(int memberId, Payment payment) async {
     Edir edir = await getEdir();
+    final t = await token();
+
     final url = Uri.parse("$_baseUrl/");
     http.Response response = await http.post(url,
         headers: <String, String>{
           'accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer $t'
         },
         body: paymentToJson(payment));
 
@@ -76,12 +82,14 @@ class AdminPaymentDataProvider with Credentials {
 
   Future<String> removePayment(int paymentId) async {
     Edir edir = await getEdir();
+    final t = await token();
+
     final url = Uri.parse("$_baseUrl/$paymentId");
     http.Response response = await http.delete(
       url,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
 
