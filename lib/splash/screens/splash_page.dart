@@ -28,6 +28,7 @@ class SplashPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           elevation: 0.5,
           title: Center(
             child: Text(
