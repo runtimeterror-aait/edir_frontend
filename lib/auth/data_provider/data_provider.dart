@@ -58,7 +58,6 @@ class AuthDataProvider {
   }
 
   Future<bool> isLoggedIn() async {
-    await _storage.deleteAll();
     var user = await _storage.read(key: "user");
     if (user == null) {
       return false;

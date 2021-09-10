@@ -10,15 +10,15 @@ class AdminEventDataProvider with Credentials {
 
 // Create Event
   Future<String> createEvent(Event event) async {
-    print("creating..");
     Edir edir = await getEdir();
     final url = Uri.parse("$_baseUrl/");
+    final t = await token();
     final http.Response response = await http.post(
       url,
       headers: <String, String>{
         "Content-Type": "application/json",
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
       body: jsonEncode({
         "title": event.title,
@@ -27,6 +27,9 @@ class AdminEventDataProvider with Credentials {
         "edir_id": edir.id,
       }),
     );
+
+    print(t);
+    print(response.body);
 
     if (response.statusCode == 200) {
       return "Created event successfully";
@@ -39,11 +42,13 @@ class AdminEventDataProvider with Credentials {
   Future<Edir> getEdir() async {
     final urlEdir =
         Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
+    final t = await token();
+
     final responseEdir = await http.get(
       urlEdir,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
 
@@ -58,12 +63,15 @@ class AdminEventDataProvider with Credentials {
     Edir edir = await getEdir();
     final url = Uri.parse(
         "http://127.0.0.1:8000/api/v1/events/${edir.id}?skip=0&limit=20");
+
+    final t = await token();
+    print(t);
     final http.Response response = await http.get(
       url,
       headers: <String, String>{
         "Content-Type": "application/json",
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
 
@@ -85,11 +93,12 @@ class AdminEventDataProvider with Credentials {
   Future<Event> getOneEvent(int eventId) async {
     Edir edir = await getEdir();
     final Uri url = Uri.parse("$_baseUrl/${edir.id}/$eventId");
+    final t = await token();
     final http.Response response = await http.get(
       url,
       headers: {
         'accept': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $t',
       },
     );
 
@@ -107,13 +116,13 @@ class AdminEventDataProvider with Credentials {
 
   Future<Event> updateEvent(Event event, int eventId) async {
     final url = Uri.parse("$_baseUrl/$eventId");
-
+    final t = await token();
     final response = await http.put(
       url,
       headers: <String, String>{
         "Content-Type": "application/json",
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
       body: jsonEncode(
         {
@@ -139,11 +148,12 @@ class AdminEventDataProvider with Credentials {
 
   Future<List<Event>> deleteEvent(int eventId) async {
     final url = Uri.parse("$_baseUrl/$eventId");
+    var t = await token();
     final response = await http.delete(
       url,
       headers: <String, String>{
         'accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization': 'Bearer $t'
       },
     );
     if (response.statusCode == 200) {
