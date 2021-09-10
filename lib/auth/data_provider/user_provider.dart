@@ -27,6 +27,26 @@ class UserDataProvider {
     }
   }
 
+  Future<User> loggedInUserData() async {
+    var checkLogin = await _auth.isLoggedIn();
+
+    if (checkLogin) {
+      try {
+        var response = await _dio.get(_baseUrl);
+        if (response.statusCode == 200) {
+          return User.fromJson(response.data);
+        } else {
+          return User.fromJson(response.data);
+        }
+      } catch (error, stacktrace) {
+        throw Exception("Exception occured: $error stackTrace: $stacktrace");
+      }
+    } else {
+      print("not logged in from fetch user data");
+      throw Exception("Not logged in");
+    }
+  }
+
   Future<void> deleteUser() async {
     try {
       await _dio.delete(_baseUrl);

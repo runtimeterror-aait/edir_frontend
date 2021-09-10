@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:edir/auth/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 part 'user_event.dart';

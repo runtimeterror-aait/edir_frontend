@@ -6,3 +6,24 @@ abstract class UserEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class UpdateUser extends UserEvent {
+  final User user;
+  UpdateUser(this.user);
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'User Updated Succesfully';
+}
+
+class LoggedInUserData extends UserState {
+  @override
+  List<Object> get props => [];
+}
+
+class DeleteUser extends UserState {
+  @override
+  List<Object> get props => [];
+}
