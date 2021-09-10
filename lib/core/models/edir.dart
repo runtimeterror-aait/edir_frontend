@@ -18,8 +18,8 @@ class Edir {
     required this.username,
   });
 
-  String name;
-  double initialDeposit;
+  String? name;
+  double? initialDeposit;
   int? ownerId;
   int? id;
   String paymentFrequency;

@@ -1,3 +1,4 @@
+import 'package:edir/admin/bloc/admin_edir_bloc.dart';
 import 'package:edir/admin/bloc/admin_event_bloc.dart';
 import 'package:edir/admin/bloc/admin_member_bloc.dart';
 import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
@@ -56,48 +57,59 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
           if (state is LoggedInUser) {
             var user = state.login;
             if (user.role == "u") {
-              navService.pushNamed('/user');
+              navService.pushReplacementNamed('/user');
             }
           }
           if (state is NotLoggedInUser) {
-            navService.pushNamed("/login");
+            navService.pushReplacementNamed("/login");
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              "Metebaber",
-              style: TextStyle(color: Colors.black87),
-            ),
-            backgroundColor: Colors.amber,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.settings,
-                  color: Colors.black,
+        child: BlocProvider(
+          create: (context) => AdminEdirBloc()..add(GetCurrentEdirEvent()),
+          child: BlocListener<AdminEdirBloc, AdminEdirState>(
+            listener: (context, state) {
+              if (state is EdirOperationFailedState) {
+                navService.pushReplacementNamed("/create_edir");
+              }
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  "Metebaber",
+                  style: TextStyle(color: Colors.black87),
                 ),
+                backgroundColor: Colors.amber,
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.settings,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
-            ],
+              body: Container(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: _pages[_selectedPage],
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                  items: [
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.home), label: "Home"),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.payment), label: "Payment"),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.people), label: "Members"),
+                  ],
+                  elevation: 10,
+                  currentIndex: _selectedPage,
+                  selectedItemColor: Colors.amber,
+                  backgroundColor: Colors.black26,
+                  onTap: _onTapChangePage),
+            ),
           ),
-          body: Container(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: _pages[_selectedPage],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-              items: [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.payment), label: "Payment"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.people), label: "Members"),
-              ],
-              elevation: 10,
-              currentIndex: _selectedPage,
-              selectedItemColor: Colors.amber,
-              backgroundColor: Colors.black26,
-              onTap: _onTapChangePage),
         ),
       ),
     );

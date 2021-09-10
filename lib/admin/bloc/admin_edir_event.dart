@@ -7,16 +7,14 @@ abstract class AdminEdirEvent extends Equatable {
   List<Object> get props => [];
 }
 
-abstract class GetCurrentEdirEvent extends AdminEdirEvent {
-  final Edir edir;
-
-  const GetCurrentEdirEvent({required this.edir});
+class GetCurrentEdirEvent extends AdminEdirEvent {
+  const GetCurrentEdirEvent();
 
   @override
   List<Object> get props => [];
 }
 
-abstract class CreateEdirEvent extends AdminEdirEvent {
+class CreateEdirEvent extends AdminEdirEvent {
   final Edir edir;
 
   const CreateEdirEvent({required this.edir});
@@ -25,7 +23,7 @@ abstract class CreateEdirEvent extends AdminEdirEvent {
   List<Object> get props => [];
 }
 
-abstract class UpdateEdirEvent extends AdminEdirEvent {
+class UpdateEdirEvent extends AdminEdirEvent {
   final Edir edir;
   final int edirInt;
 
