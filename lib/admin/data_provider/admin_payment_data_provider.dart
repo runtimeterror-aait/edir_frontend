@@ -52,13 +52,15 @@ class AdminPaymentDataProvider with Credentials {
   Future<String> addPayment(int memberId, Payment payment) async {
     Edir edir = await getEdir();
     final url = Uri.parse("$_baseUrl/");
-    http.Response response = await http.post(url,
-        headers: <String, String>{
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-        body: paymentToJson(payment));
+    http.Response response = await http.post(
+      url,
+      headers: <String, String>{
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+      body: paymentToJson(payment),
+    );
 
     if (response.statusCode == 200) {
       print("Payment added");
