@@ -63,8 +63,6 @@ class AppWidget extends StatelessWidget {
                 navService.pushNamed('/user');
               }
             }
-
-            print(state);
             return MaterialApp(
               onGenerateRoute: _routes(),
               title: 'edir',
