@@ -65,7 +65,6 @@ class AdminEventDataProvider with Credentials {
         "http://127.0.0.1:8000/api/v1/events/${edir.id}?skip=0&limit=20");
 
     final t = await token();
-    print(t);
     final http.Response response = await http.get(
       url,
       headers: <String, String>{
@@ -77,11 +76,9 @@ class AdminEventDataProvider with Credentials {
 
     if (response.statusCode == 200) {
       final events = jsonDecode(response.body).cast<Map<String, dynamic>>();
-      print("get All Events Successful");
-
       final eventsList =
           events.map<Event>((json) => Event.fromJson(json)).toList();
-
+      print(eventsList);
       return eventsList;
     } else {
       throw Exception("Could not fetch events");

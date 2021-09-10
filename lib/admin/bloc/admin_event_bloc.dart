@@ -38,8 +38,13 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     } else if (event is GetAllEventsEvent) {
       try {
         yield EventLoadingState();
-        final List<Event> events = await eventRepository.getAllEvents();
-        yield AllEventsLoadedState(events: events);
+        try {
+          final List<Event> events = await eventRepository.getAllEvents();
+
+          yield AllEventsLoadedState(events: events);
+        } catch (e) {
+          print(e);
+        }
       } catch (_) {
         yield EventOperationFailedState();
       }
