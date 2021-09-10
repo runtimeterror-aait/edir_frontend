@@ -18,8 +18,12 @@ class AuthRepository {
     return _provider.addUser(login);
   }
 
-  Future<void> LogOut(Login login) async {
+  Future<void> logOut() async {
     return _provider.logout();
+  }
+
+  Future<Login> loggedInUser() async {
+    return _provider.loggedInUser();
   }
 }
 
