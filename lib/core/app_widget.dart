@@ -14,6 +14,7 @@ import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/user/screens/dashboard/user_dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 class AppWidget extends StatelessWidget {
   // const AppWidget({Key? key}) : super(key: key);
@@ -54,14 +55,15 @@ class AppWidget extends StatelessWidget {
             if (state is LoggedInUser) {
               var user = state.login;
               if (user.role == "a") {
-                Navigator.pushNamed(context, "/admin");
+                navService.pushNamed('/admin');
               } else {
-                Navigator.pushNamed(context, "/user");
+                navService.pushNamed('/user');
               }
             }
             return MaterialApp(
               onGenerateRoute: _routes(),
               title: 'edir',
+              navigatorKey: NavigationService.navigationKey,
               // home: SplashPage(),
               darkTheme: _dark,
               theme: _light,

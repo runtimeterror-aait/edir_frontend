@@ -35,8 +35,13 @@ class AuthDataProvider {
 
     try {
       var response = await _dio.post(_baseUrl + "/login", data: data);
-      await _storage.write(key: "user", value: response.data.toString());
-      return Login.fromJson(response.data);
+      var user = Login.fromJson(response.data);
+      try {
+        await _storage.write(key: "user", value: jsonEncode(user));
+      } catch (e) {
+        print(e);
+      }
+      return user;
     } catch (error) {
       print(error);
       throw Exception("Exception occured: $error");
@@ -66,7 +71,8 @@ class AuthDataProvider {
     if (user == null) {
       throw Exception("User not logged in");
     } else {
-      return Login.fromJson(jsonDecode(user));
+      var usr = jsonDecode(user.toString());
+      return Login.fromJson(usr);
     }
   }
 }

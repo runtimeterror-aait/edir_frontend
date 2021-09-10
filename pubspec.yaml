@@ -30,6 +30,7 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   flutter_svg: ^0.22.0
   intl: ^0.17.0
+  no_context_navigation: ^2.1.2
   syncfusion_flutter_datepicker: ^19.2.59
 
   # The following adds the Cupertino Icons font to your application.

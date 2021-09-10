@@ -13,12 +13,15 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginLoaded) {
-          print("logged in");
+          BlocProvider.of<AuthBloc>(context).add(GetLoggedInUser());
+          print(state);
         }
 
         if (state is AuthError) {
           _showToast(context, state.toString());
         }
+
+        print(state);
       },
       child: Form(
           key: _formKey,
@@ -93,7 +96,6 @@ class SignInForm extends StatelessWidget with SignInAndRegisterForm {
 
                       BlocProvider.of<AuthBloc>(context)
                           .add(LogIn(email, password));
-                      form.reset();
                     }
                   },
                   child: const Text('Sign in'),

@@ -34,6 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         var loggedInUser = await authRepository.loggedInUser();
         yield LoggedInUser(loggedInUser);
       } catch (error) {
+        print(error);
         yield NotLoggedInUser();
       }
     }
