@@ -11,7 +11,7 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;
 
-  UserBloc() : super(UserInitial());
+  UserBloc({required this.userRepository}) : super(UserInitial());
 
   @override
   Stream<UserState> mapEventToState(
@@ -32,7 +32,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserLoading();
         var user = await userRepository.loggedInUserData();
         yield UserDataLoaded(user);
-      } catch (error) {}
+      } catch (error) {
+        yield UserError(error.toString());
+      }
+    }
+
+    if (event is DeleteUser) {
+      try {
+        yield UserLoading();
+        await userRepository.deleteUser();
+        yield UserDeleted();
+      } catch (error) {
+        yield UserError(error.toString());
+      }
     }
   }
 }
