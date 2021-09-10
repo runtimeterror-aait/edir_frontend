@@ -9,7 +9,7 @@ class UserRepository {
     return _provider.updateUser(user);
   }
 
-  Future<void> loggedInUserData() {
+  Future<User> loggedInUserData() {
     return _provider.loggedInUserData();
   }
 
