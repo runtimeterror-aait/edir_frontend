@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:edir/auth/bloc/user_event.dart';
+import 'package:edir/auth/bloc/user_state.dart';
 import 'package:edir/auth/models/member.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:edir/auth/repository/user_repository.dart';
 import 'package:edir/core/models/member.dart';
 import 'package:equatable/equatable.dart';
-
-part 'user_event.dart';
-part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;
@@ -46,6 +45,26 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserDeleted();
       } catch (error) {
         yield UserError(error.toString());
+      }
+    }
+
+    if (event is JoinEdir) {
+      try {
+        var user = await userRepository.joinEdir(event.member);
+        yield JoinEdirLoaded(user);
+      } catch (error) {
+        print(error);
+        yield JoinEdirError();
+      }
+    }
+
+    if (event is JoinedEdir) {
+      try {
+        var user = await userRepository.getJoinedEdir();
+        yield JoinEdirFetchLoaded(user);
+      } catch (error) {
+        print(error);
+        yield JoinEdirFetchError();
       }
     }
   }

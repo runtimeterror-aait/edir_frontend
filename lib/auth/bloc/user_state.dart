@@ -1,6 +1,6 @@
 import 'package:edir/auth/models/addMember.dart';
+import 'package:edir/auth/models/member.dart';
 import 'package:edir/auth/models/user.dart';
-import 'package:edir/core/models/member.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserState extends Equatable {
