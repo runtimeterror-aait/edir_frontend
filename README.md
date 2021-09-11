@@ -16,7 +16,7 @@ Edir application is the digital version of the traditional Edir. Members of the 
 
 ### Group members
 
-- Betemariam Moges - ATR/0636/11
+- Betemariam Moges - ATR/0536/11
 - Dawit Bezabih - ATR/8263/11
 - Liyu Mesfin - ATR/3709/11
 - Michael Belete - ATR/5388/11
