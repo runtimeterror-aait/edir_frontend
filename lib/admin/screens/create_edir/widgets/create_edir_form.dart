@@ -4,6 +4,7 @@ import 'package:edir/core/models/edir.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 class CreateEdirForm extends StatelessWidget with SignInAndRegisterForm {
   final _formKey = GlobalKey<FormState>();
@@ -22,7 +23,13 @@ class CreateEdirForm extends StatelessWidget with SignInAndRegisterForm {
   Widget build(BuildContext context) {
     return BlocListener<AdminEdirBloc, AdminEdirState>(
       listener: (context, state) {
-        print(state);
+        if (state is EdirsLoadedState) {
+          navService.pushReplacementNamed("/admin");
+        }
+
+        if (state is EdirOperationFailedState) {
+          _showToast(context, "Creating failed please try again");
+        }
       },
       child: Form(
         key: _formKey,
@@ -135,6 +142,17 @@ class CreateEdirForm extends StatelessWidget with SignInAndRegisterForm {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context, String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

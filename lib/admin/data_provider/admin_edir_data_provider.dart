@@ -25,9 +25,14 @@ class AdminEdirDataProvider with Credentials {
 
 // Create new edir
   Future<String> createEdir(Edir edir) async {
-    final url = Uri.parse("http://localhost:8000/v1/edirs");
+    final url = Uri.parse("http://localhost:8000/v1/edirs/");
     var t = await token();
-
+    var data = {
+      "name": edir.name,
+      "payment_frequency": edir.paymentFrequency,
+      "initial_deposit": edir.initialDeposit,
+      "username": edir.username
+    };
     final http.Response response = await http.post(
       url,
       headers: <String, String>{
@@ -35,7 +40,7 @@ class AdminEdirDataProvider with Credentials {
         'accept': 'application/json',
         'Authorization': 'Bearer $t'
       },
-      body: edirToJson(edir),
+      body: jsonEncode(data),
     );
     if (response.statusCode == 200) {
       return "Edir successfully created.";
