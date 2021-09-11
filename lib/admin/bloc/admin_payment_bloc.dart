@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:edir/admin/data_provider/admin_payment_data_provider.dart';
 import 'package:edir/admin/repository/admin_payment_repository.dart';
+import 'package:edir/auth/data_provider/user_provider.dart';
+import 'package:edir/auth/models/member.dart';
 import 'package:edir/core/models/payment.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +50,17 @@ class AdminPaymentBloc extends Bloc<AdminPaymentEvent, AdminPaymentState> {
         yield AllPaymentsLoadedState(payments: payments);
       } catch (_) {
         yield RemovePaymentOperationFailedState();
+      }
+    } else if (event is GetMemberPaymentsEvent) {
+      try {
+        yield PaymentsLoadingState();
+        UserDataProvider userDataProvider = UserDataProvider();
+        Member member = await userDataProvider.getJoinedEdir();
+        List<Payment> payments =
+            await paymentRepository.getAllPayments(member.id!);
+        yield GetMemberPaymentsState(payments: payments);
+      } catch (_) {
+        yield GetMemberPaymentOperationFailedState();
       }
     }
   }

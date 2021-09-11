@@ -110,27 +110,30 @@ class _EventsContainer extends StatelessWidget with Styles {
                       Text(
                         eventTitle,
                         style: textStyle_3.copyWith(
-                            color: MaterialStateColor.resolveWith(
-                                (states) => Colors.blueGrey)),
+                          color: MaterialStateColor.resolveWith(
+                              (states) => Colors.blueGrey),
+                        ),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 4,
                   ),
                   Text(
                     eventDescription,
                     style: TextStyle(
+                      fontSize: 14,
                       color: MaterialStateColor.resolveWith(
                           (states) => Colors.black87),
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 2,
                   ),
                   Text(
                     date,
                     style: TextStyle(
+                      fontSize: 10,
                       color: MaterialStateColor.resolveWith(
                           (states) => Colors.black87),
                     ),
