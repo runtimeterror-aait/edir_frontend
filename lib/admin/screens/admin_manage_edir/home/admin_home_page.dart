@@ -19,7 +19,6 @@ class AdminHomePage extends StatefulWidget {
 class _AdminHomePageState extends State<AdminHomePage> with Styles {
   @override
   void initState() {
-    // TODO: implement initState
     BlocProvider.of<AdminEventBloc>(context)..add(GetAllEventsEvent());
     super.initState();
   }
@@ -212,4 +211,21 @@ class __ManageableEventsState extends State<_ManageableEvents> with Styles {
       ],
     );
   }
+
+  // alertDialog(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Text('Delete'),
+  //           content: Text('Are you sure you want to delete this event?'),
+  //           actions: <Widget>[
+  //             ElevatedButton(
+  //               child: Text('Confirm'),
+  //               onPressed: () {},
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 }

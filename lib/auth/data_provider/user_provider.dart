@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:edir/auth/models/addMember.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:edir/auth/data_provider/data_provider.dart';
+
+import 'package:edir/auth/models/member.dart';
 
 class UserDataProvider {
   final Dio _dio = Dio();
@@ -44,6 +48,48 @@ class UserDataProvider {
     } else {
       print("not logged in from fetch user data");
       throw Exception("Not logged in");
+    }
+  }
+
+  Future<Member> getJoinedEdir() async {
+    var checkLogin = await _auth.isLoggedIn();
+
+    var loggedInUser = await loggedInUserData();
+    if (checkLogin) {
+      try {
+        var response = await _dio.get(
+            "http://localhost:8000/api/v1/members/user/" +
+                loggedInUser.id.toString());
+        if (response.statusCode == 200) {
+          return Member.fromJson(response.data);
+        } else {
+          return Member.fromJson(response.data);
+        }
+      } catch (error, stacktrace) {
+        throw Exception("Exception occured: $error stackTrace: $stacktrace");
+      }
+    } else {
+      print("not logged in from fetch user data");
+      throw Exception("Not logged in");
+    }
+  }
+
+  Future<AddMember> joinEdir(AddMember member) async {
+    var data = {
+      "user_id": member.userId,
+      "edir_username": member.edirUsername,
+      "status": "p"
+    };
+
+    try {
+      var response = await _dio.put(_baseUrl, data: data);
+      if (response.statusCode == 200) {
+        return AddMember.fromJson(response.data);
+      } else {
+        return AddMember.fromJson(response.data);
+      }
+    } catch (error, stacktrace) {
+      throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
 

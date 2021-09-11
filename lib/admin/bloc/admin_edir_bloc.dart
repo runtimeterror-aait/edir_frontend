@@ -16,14 +16,12 @@ class AdminEdirBloc extends Bloc<AdminEdirEvent, AdminEdirState> {
   Stream<AdminEdirState> mapEventToState(
     AdminEdirEvent event,
   ) async* {
-    // TODO: implement mapEventToState
     if (event is GetCurrentEdirEvent) {
       try {
         yield EdirsLoadingState();
         final Edir edir = await adminEdirRepository.getCurrentEdir();
-
         yield EdirsLoadedState(edir: edir);
-      } catch (_) {
+      } catch (error) {
         yield EdirOperationFailedState();
       }
     } else if (event is UpdateEdirEvent) {
@@ -33,17 +31,23 @@ class AdminEdirBloc extends Bloc<AdminEdirEvent, AdminEdirState> {
 
         final Edir edir = await adminEdirRepository.getCurrentEdir();
         yield EdirsLoadedState(edir: edir);
-      } catch (_) {
+      } catch (error) {
+        print(error);
         yield EdirOperationFailedState();
       }
     } else if (event is CreateEdirEvent) {
       try {
         yield EdirsLoadingState();
-        await adminEdirRepository.createEdir(event.edir);
-
-        final Edir edir = await adminEdirRepository.getCurrentEdir();
-        yield EdirsLoadedState(edir: edir);
-      } catch (_) {
+        try {
+          await adminEdirRepository.createEdir(event.edir);
+          final Edir edir = await adminEdirRepository.getCurrentEdir();
+          yield EdirsLoadedState(edir: edir);
+        } catch (e) {
+          print(e);
+          yield EdirOperationFailedState();
+        }
+      } catch (error) {
+        print(error);
         yield EdirOperationFailedState();
       }
     }

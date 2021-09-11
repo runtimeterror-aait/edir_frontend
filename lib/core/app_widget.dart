@@ -58,9 +58,9 @@ class AppWidget extends StatelessWidget {
             if (state is LoggedInUser) {
               var user = state.login;
               if (user.role == "a") {
-                navService.pushNamed('/admin');
+                navService.pushReplacementNamed('/admin');
               } else {
-                navService.pushNamed('/user');
+                navService.pushReplacementNamed('/user');
               }
             }
             return MaterialApp(
@@ -96,6 +96,9 @@ class AppWidget extends StatelessWidget {
           break;
         case "/user":
           screen = UserDashboardPage();
+          break;
+        case "/create_edir":
+          screen = CreateEdirPage();
           break;
         default:
           return null;
