@@ -63,3 +63,8 @@ class EventOperationFailedState extends AdminEventState {
   @override
   List<Object> get props => [];
 }
+
+class MembersEventOperationFailedState extends AdminEventState {
+  @override
+  List<Object> get props => [];
+}

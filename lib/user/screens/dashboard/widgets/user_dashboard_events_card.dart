@@ -1,9 +1,11 @@
 import 'package:edir/admin/bloc/admin_event_bloc.dart';
 import 'package:edir/admin/bloc/admin_member_bloc.dart';
 import 'package:edir/auth/bloc/bloc.dart';
+import 'package:edir/core/models/event.dart';
 import 'package:edir/core/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class UserDashboardEventsCard extends StatefulWidget with Styles {
   UserDashboardEventsCard({
@@ -16,33 +18,11 @@ class UserDashboardEventsCard extends StatefulWidget with Styles {
 }
 
 class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
-  List<Map> eventContainerInputs = [
-    {
-      "edirName": "Metebaber",
-      "eventTitle": "Funeral",
-      "eventDescription":
-          "We will have this event at this time.We will have this event at this time. We will have this event at this time.We will have this event at this time."
-    },
-    {
-      "edirName": "Metebaber",
-      "eventTitle": "Funeral",
-      "eventDescription":
-          "We will have this event at this time.We will have this event at this time. We will have this event at this time.We will have this event at this time."
-    },
-    {
-      "edirName": "Metebaber",
-      "eventTitle": "Funeral",
-      "eventDescription":
-          "We will have this event at this time.We will have this event at this time. We will have this event at this time.We will have this event at this time."
-    }
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
-
-    BlocProvider.of<AdminEventBloc>(context).add(GetAllMemberEventsEvent());
     super.initState();
+    BlocProvider.of<AdminEventBloc>(context).add(GetAllMemberEventsEvent());
   }
 
   @override
@@ -56,19 +36,14 @@ class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
             height: 300,
             child: BlocBuilder<AdminEventBloc, AdminEventState>(
               builder: (context, state) {
-                print("state");
-                print(state);
                 if (state is LoadingMemberEventsState) {
-                  print("State");
-                  print(state);
                   return Center(
                     child: CircularProgressIndicator(
                       color: Colors.amber,
                     ),
                   );
                 } else if (state is AllMemberEventsLoadedState) {
-                  print("State");
-                  print(state);
+                  List<Event> events = state.events;
                   if (state.events.length != 0) {
                     Center(
                       child: Text("No new event."),
@@ -79,12 +54,12 @@ class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
                     controller: ScrollController(keepScrollOffset: false),
                     padding: const EdgeInsets.all(5),
                     children: [
-                      // for (Map eventContainer in eventContainerInputs)
-                      //   _EventsContainer(
-                      //       edirName: eventContainer['edirName'],
-                      //       eventTitle: eventContainer['eventTitle'],
-                      //       eventDescription:
-                      //           eventContainer['eventDescription'])
+                      for (int i = events.length - 1; i >= 0; i--)
+                        _EventsContainer(
+                          eventTitle: events[i].title,
+                          eventDescription: events[i].description,
+                          dateTime: events[i].eventDate,
+                        )
                     ],
                   );
                 }
@@ -103,14 +78,16 @@ class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
 class _EventsContainer extends StatelessWidget with Styles {
   _EventsContainer({
     Key? key,
-    required this.edirName,
     required this.eventTitle,
     required this.eventDescription,
+    required this.dateTime,
   }) : super(key: key);
 
-  final String edirName;
   final String eventTitle;
   final String eventDescription;
+  final DateTime dateTime;
+
+  String get date => DateFormat('EEEE, d MMM, yyyy').format(dateTime);
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +108,7 @@ class _EventsContainer extends StatelessWidget with Styles {
                   Row(
                     children: [
                       Text(
-                        edirName,
+                        eventTitle,
                         style: textStyle_3.copyWith(
                             color: MaterialStateColor.resolveWith(
                                 (states) => Colors.blueGrey)),
@@ -139,31 +116,24 @@ class _EventsContainer extends StatelessWidget with Styles {
                     ],
                   ),
                   SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "New event Posted",
-                    style: textStyle_2.copyWith(
-                        color: MaterialStateColor.resolveWith(
-                            (states) => Colors.blueGrey)),
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    eventTitle,
-                    style: TextStyle(
-                        color: MaterialStateColor.resolveWith(
-                            (states) => Colors.blueGrey)),
-                  ),
-                  SizedBox(
-                    height: 3,
+                    height: 5,
                   ),
                   Text(
                     eventDescription,
                     style: TextStyle(
-                        color: MaterialStateColor.resolveWith(
-                            (states) => Colors.white)),
+                      color: MaterialStateColor.resolveWith(
+                          (states) => Colors.black87),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(
+                      color: MaterialStateColor.resolveWith(
+                          (states) => Colors.black87),
+                    ),
                   )
                 ],
               ),

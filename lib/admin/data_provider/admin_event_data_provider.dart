@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:edir/auth/data_provider/user_provider.dart';
+import 'package:edir/auth/models/user.dart';
 import 'package:edir/core/credentials.dart';
 import 'package:edir/core/models/edir.dart';
 import 'package:edir/core/models/event.dart';
@@ -87,9 +89,8 @@ class AdminEventDataProvider with Credentials {
   }
 
   // Get member events
-  Future<List<Event>> getMemberEvents(int userId) async {
-    Edir edir = await getEdir();
-    final Uri url = Uri.parse("$_baseUrl/user/$userId");
+  Future<List<Event>> getMemberEvents() async {
+    final Uri url = Uri.parse("$_baseUrl/1");
     final t = await token();
 
     final http.Response response = await http.get(
@@ -101,14 +102,11 @@ class AdminEventDataProvider with Credentials {
     );
 
     if (response.statusCode == 200) {
-      final event = Event.fromJson(
-        jsonDecode(response.body),
-      );
-
       final events = jsonDecode(response.body).cast<Map<String, dynamic>>();
       final eventsList =
           events.map<Event>((json) => Event.fromJson(json)).toList();
       print(eventsList);
+
       return eventsList;
     } else {
       throw Exception("Couldn't fetch event");
@@ -205,7 +203,7 @@ void main() async {
 
   // await adminEventDataProvider.createEvent(event);
 
-  final edir = await adminEventDataProvider.getMemberEvents(3);
+  final edir = await adminEventDataProvider.getMemberEvents();
 
   print(edir);
 }

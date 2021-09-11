@@ -15,6 +15,7 @@ part 'admin_event_state.dart';
 class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
   AdminEventRepository eventRepository =
       AdminEventRepository(AdminEventDataProvider());
+  UserDataProvider userDataProvider = UserDataProvider();
 
   // Future<List<Event>> eventsMethon() async {
   //   final List<Event> events =  await eventRepository.getAllEvents(2);
@@ -84,16 +85,13 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     } else if (event is GetAllMemberEventsEvent) {
       try {
         yield LoadingMemberEventsState();
-        final userId = await UserDataProvider()
-            .loggedInUserData()
-            .then((value) => value.id);
+        // final member = await userDataProvider.getJoinedEdir();
 
-        final List<Event> getEvents =
-            await eventRepository.getMemberEvents(userId!);
+        final List<Event> getEvents = await eventRepository.getMemberEvents();
+        print(getEvents);
         yield AllMemberEventsLoadedState(events: getEvents);
       } catch (e) {
-        print(e);
-        yield EventOperationFailedState();
+        yield MembersEventOperationFailedState();
       }
     }
   }
