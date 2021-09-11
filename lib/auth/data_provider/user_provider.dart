@@ -135,6 +135,7 @@ class UserDataProvider with Credentials {
   Future<void> deleteUser() async {
     try {
       await _dio.delete(_baseUrl);
+      print("deleted");
       await _auth.logout();
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");

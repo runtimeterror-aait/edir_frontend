@@ -81,7 +81,10 @@ class _UserDashboardPageState extends State<UserDashboardPage>
               appBar: AppBar(
                 iconTheme: IconThemeData(color: Colors.black),
                 backgroundColor: Colors.amber,
-                title: Text("Welcome", style: TextStyle(color: Colors.black)),
+                title: Text(
+                  "Welcome",
+                  style: TextStyle(color: Colors.black),
+                ),
                 leading: Image.asset(logoImageWithoutName),
                 actions: <Widget>[
                   IconButton(
