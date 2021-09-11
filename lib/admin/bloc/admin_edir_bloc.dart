@@ -31,17 +31,23 @@ class AdminEdirBloc extends Bloc<AdminEdirEvent, AdminEdirState> {
 
         final Edir edir = await adminEdirRepository.getCurrentEdir();
         yield EdirsLoadedState(edir: edir);
-      } catch (_) {
+      } catch (error) {
+        print(error);
         yield EdirOperationFailedState();
       }
     } else if (event is CreateEdirEvent) {
       try {
         yield EdirsLoadingState();
-        await adminEdirRepository.createEdir(event.edir);
-
-        final Edir edir = await adminEdirRepository.getCurrentEdir();
-        yield EdirsLoadedState(edir: edir);
-      } catch (_) {
+        try {
+          await adminEdirRepository.createEdir(event.edir);
+          print("created");
+        } catch (e) {
+          print(e);
+        }
+        // final Edir edir = await adminEdirRepository.getCurrentEdir();
+        // yield EdirsLoadedState(edir: edir);
+      } catch (error) {
+        print(error);
         yield EdirOperationFailedState();
       }
     }

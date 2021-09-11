@@ -12,8 +12,8 @@ class Edir {
   Edir({
     required this.name,
     required this.initialDeposit,
-    required this.ownerId,
-    required this.id,
+    this.ownerId,
+    this.id,
     required this.paymentFrequency,
     required this.username,
   });
