@@ -53,11 +53,11 @@ class _UserDashboardPageState extends State<UserDashboardPage>
           child: BlocListener<UserBloc, UserState>(
             listener: (context, state) {
               if (state is JoinEdirFetchError) {
-                print("redirect");
+                navService.pushReplacementNamed("/join_edir");
               }
 
               if (state is JoinEdirFetchLoaded) {
-                print(state.member);
+                print(state.member.edirId);
               }
             },
             child: Scaffold(

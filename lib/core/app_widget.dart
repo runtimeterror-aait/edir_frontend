@@ -15,6 +15,7 @@ import 'package:edir/auth/screens/register/screens/widgets/register_form.dart';
 import 'package:edir/auth/screens/sign_in/screens/sign_in_page.dart';
 import 'package:edir/splash/screens/splash_page.dart';
 import 'package:edir/user/screens/dashboard/user_dashboard_page.dart';
+import 'package:edir/user/screens/joinEdir/join_edir.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
@@ -99,6 +100,9 @@ class AppWidget extends StatelessWidget {
           break;
         case "/create_edir":
           screen = CreateEdirPage();
+          break;
+        case "/join_edir":
+          screen = JoinEdirPage();
           break;
         default:
           return null;
