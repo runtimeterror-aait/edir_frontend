@@ -1,3 +1,4 @@
+import 'package:edir/admin/bloc/admin_member_bloc.dart';
 import 'package:edir/admin/bloc/admin_payment_bloc.dart';
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_member_payment_page.dart';
 import 'package:edir/auth/bloc/auth_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:edir/auth/bloc/user_event.dart';
 import 'package:edir/auth/repository/auth_repository.dart';
 import 'package:edir/auth/repository/user_repository.dart';
 import 'package:edir/core/appbar.dart';
+import 'package:edir/core/models/payment.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:edir/core/styles.dart';
 import 'package:edir/user/screens/dashboard/widgets/user_dashboard_events_card.dart';
@@ -30,6 +32,16 @@ final AuthRepository authRepository = AuthRepository();
 class _UserDashboardPageState extends State<UserDashboardPage>
     with SignInAndRegisterForm, Styles {
   final UserRepository userRepository = UserRepository();
+
+  double totalPayment = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -47,6 +59,8 @@ class _UserDashboardPageState extends State<UserDashboardPage>
           if (state is NotLoggedInUser) {
             navService.pushNamed("/login");
           }
+          BlocProvider.of<AdminPaymentBloc>(context)
+              .add(GetMemberPaymentsEvent());
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -87,19 +101,34 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Total Payments",
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "ETB 300",
-                      style: textStyleBold_3,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Total Payments",
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "ETB $totalPayment",
+                              style: textStyleBold_3,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        IconButton(
+                            onPressed: () {
+                              BlocProvider.of<AdminPaymentBloc>(context)
+                                  .add(GetMemberPaymentsEvent());
+                            },
+                            icon: Icon(Icons.refresh, color: Colors.amber))
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -111,16 +140,36 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: BlocBuilder<AdminPaymentBloc, AdminPaymentState>(
                   builder: (context, state) {
-                    return ListView(
-                      children: [
-                        // for (int i = 0; i < 10; i++)
-                        //   MemberPayment(
-                        //     moneyAmount: 100,
-                        //     paymentNote: "payment note",
-                        //     selectedDate: DateTime.now(),
-                        //     isAdmin: false,
-                        //   ),
-                      ],
+                    if (state is PaymentsLoadingState) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.amber,
+                        ),
+                      );
+                    }
+                    if (state is GetMemberPaymentsState) {
+                      List<Payment> payments = state.payments;
+                      for (int i = payments.length - 1; i >= 0; i--) {
+                        totalPayment += payments[i].payment;
+                      }
+                      if (payments.length == 0) {
+                        return Center(
+                          child: Text("No payment information."),
+                        );
+                      }
+                      return ListView(
+                        children: [
+                          for (int i = payments.length - 1; i >= 0; i--)
+                            MemberPayment(
+                                moneyAmount: payments[i].payment,
+                                paymentNote: payments[i].note,
+                                selectedDate: payments[i].paymentDate,
+                                isAdmin: false),
+                        ],
+                      );
+                    }
+                    return Center(
+                      child: Text("Couldn't fetch payments"),
                     );
                   },
                 ),

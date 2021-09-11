@@ -55,9 +55,12 @@ class AdminPaymentBloc extends Bloc<AdminPaymentEvent, AdminPaymentState> {
       try {
         yield PaymentsLoadingState();
         UserDataProvider userDataProvider = UserDataProvider();
+
         Member member = await userDataProvider.getJoinedEdir();
-        List<Payment> payments =
-            await paymentRepository.getAllPayments(member.id!);
+
+        List<Payment> payments = await paymentRepository.getMemberPayments(
+            member.id!, member.edirId!);
+
         yield GetMemberPaymentsState(payments: payments);
       } catch (_) {
         yield GetMemberPaymentOperationFailedState();
