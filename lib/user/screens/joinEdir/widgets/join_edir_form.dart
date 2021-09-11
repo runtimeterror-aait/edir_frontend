@@ -15,7 +15,13 @@ class JoinEdirForm extends StatelessWidget with SignInAndRegisterForm {
   Widget build(BuildContext context) {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
-        print(state);
+        if (state is JoinEdirLoaded) {
+          navService.pushReplacementNamed("/user");
+        }
+
+        if (state is JoinEdirError) {
+          _showToast(context, "Error joining please try again");
+        }
       },
       child: Column(
         children: [
