@@ -95,7 +95,7 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
                       BlocProvider.of<AuthBloc>(context).add(LogOut());
                       if (BlocProvider.of<AuthBloc>(context).state
                           is LogoutSucess) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SignInPage(),

@@ -9,6 +9,7 @@ import 'package:edir/auth/bloc/user_state.dart';
 import 'package:edir/auth/bloc/user_event.dart';
 import 'package:edir/auth/repository/auth_repository.dart';
 import 'package:edir/auth/repository/user_repository.dart';
+import 'package:edir/auth/screens/sign_in/screens/sign_in_page.dart';
 import 'package:edir/core/appbar.dart';
 import 'package:edir/core/models/payment.dart';
 import 'package:edir/core/signin_and_register_form.dart';
@@ -79,12 +80,28 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                 resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   iconTheme: IconThemeData(color: Colors.black),
-                  textTheme: Theme.of(context).textTheme.apply(
-                        bodyColor: Colors.black,
-                      ),
-                  title: Text("Welcome user"),
+                  backgroundColor: Colors.amber,
+                  title: Text("Welcome", style: TextStyle(color: Colors.black)),
                   leading: Image.asset(logoImageWithoutName),
                   actions: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        BlocProvider.of<AuthBloc>(context).add(LogOut());
+                        if (BlocProvider.of<AuthBloc>(context).state
+                            is LogoutSucess) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInPage(),
+                            ),
+                          );
+                        }
+                      },
+                      icon: Icon(
+                        Icons.logout,
+                        color: Colors.black,
+                      ),
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
