@@ -186,20 +186,6 @@ class _AdminManageEdirPageState extends State<AdminManageEdirPage> {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.amber)),
                   child: Text(
-                    'Edit edir',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateEdirPage()));
-                  },
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.amber)),
-                  child: Text(
                     'Edit Account',
                     style: TextStyle(color: Colors.black),
                   ),
