@@ -14,6 +14,12 @@ class GetAllPaymentsEvent extends AdminPaymentEvent {
   List<Object> get props => [memberId];
 }
 
+class GetMemberPaymentsEvent extends AdminPaymentEvent {
+  GetMemberPaymentsEvent();
+  @override
+  List<Object> get props => [];
+}
+
 class AddPaymentEvent extends AdminPaymentEvent {
   final int memberId;
   final Payment payment;

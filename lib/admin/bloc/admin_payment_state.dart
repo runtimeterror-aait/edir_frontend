@@ -16,6 +16,13 @@ class AllPaymentsLoadedState extends AdminPaymentState {
   AllPaymentsLoadedState({required this.payments});
 }
 
+class GetMemberPaymentsState extends AdminPaymentState {
+  final List<Payment> payments;
+  GetMemberPaymentsState({required this.payments});
+  @override
+  List<Object> get props => [];
+}
+
 class AddPaymentState extends AdminPaymentState {}
 
 class RemovePaymentState extends AdminPaymentState {}
@@ -31,6 +38,11 @@ class RemovePaymentOperationFailedState extends AdminPaymentState {
 }
 
 class AddPaymentOperationFailedState extends AdminPaymentState {
+  @override
+  List<Object> get props => [];
+}
+
+class GetMemberPaymentOperationFailedState extends AdminPaymentState {
   @override
   List<Object> get props => [];
 }

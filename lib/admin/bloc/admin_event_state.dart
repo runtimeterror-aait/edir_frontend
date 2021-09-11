@@ -36,6 +36,20 @@ class OneEventLoadedState extends AdminEventState {
   List<Object> get props => [getEvent];
 }
 
+class AllMemberEventsLoadedState extends AdminEventState {
+  final List<Event> events;
+
+  AllMemberEventsLoadedState({required this.events});
+
+  @override
+  List<Object> get props => [events];
+}
+
+class LoadingMemberEventsState extends AdminEventState {
+  @override
+  List<Object> get props => [];
+}
+
 class LoadAfterDeleteState extends AdminEventState {
   final List<Event> events;
 
@@ -46,6 +60,11 @@ class LoadAfterDeleteState extends AdminEventState {
 }
 
 class EventOperationFailedState extends AdminEventState {
+  @override
+  List<Object> get props => [];
+}
+
+class MembersEventOperationFailedState extends AdminEventState {
   @override
   List<Object> get props => [];
 }

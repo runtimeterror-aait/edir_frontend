@@ -85,10 +85,11 @@ class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
                     return ListView(
                       children: [
                         for (int i = payments.length - 1; i >= 0; i--)
-                          _MemberPayment(
+                          MemberPayment(
                             moneyAmount: payments[i].payment,
                             paymentNote: payments[i].note,
                             selectedDate: payments[i].paymentDate,
+                            isAdmin: true,
                           )
                       ],
                     );
@@ -111,14 +112,16 @@ class _AdminMemberPaymentPage extends State<AdminMemberPaymentPage>
   }
 }
 
-class _MemberPayment extends StatelessWidget with Styles {
-  _MemberPayment({
+class MemberPayment extends StatelessWidget with Styles {
+  MemberPayment({
     Key? key,
     required this.moneyAmount,
     required this.paymentNote,
     required this.selectedDate,
+    required this.isAdmin,
   }) : super(key: key);
   final double moneyAmount;
+  final bool isAdmin;
   final String paymentNote;
   final DateTime selectedDate;
 
@@ -161,14 +164,15 @@ class _MemberPayment extends StatelessWidget with Styles {
                 ],
               ),
               Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: 24,
-                ),
-              )
+              if (isAdmin)
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                    size: 24,
+                  ),
+                )
             ],
           ),
         ),

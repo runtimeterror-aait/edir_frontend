@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
 import 'package:edir/admin/repository/admin_event_repository.dart';
+import 'package:edir/auth/bloc/bloc.dart';
 import 'package:edir/core/models/event.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:edir/auth/data_provider/user_provider.dart';
 
 part 'admin_event_event.dart';
 part 'admin_event_state.dart';
@@ -13,6 +15,7 @@ part 'admin_event_state.dart';
 class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
   AdminEventRepository eventRepository =
       AdminEventRepository(AdminEventDataProvider());
+  UserDataProvider userDataProvider = UserDataProvider();
 
   // Future<List<Event>> eventsMethon() async {
   //   final List<Event> events =  await eventRepository.getAllEvents(2);
@@ -43,6 +46,7 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
 
           yield AllEventsLoadedState(events: events);
         } catch (e) {
+          print("here");
           print(e);
         }
       } catch (_) {
@@ -77,6 +81,17 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
         yield AllEventsLoadedState(events: events);
       } catch (_) {
         yield EventOperationFailedState();
+      }
+    } else if (event is GetAllMemberEventsEvent) {
+      try {
+        yield LoadingMemberEventsState();
+        // final member = await userDataProvider.getJoinedEdir();
+
+        final List<Event> getEvents = await eventRepository.getMemberEvents();
+        print(getEvents);
+        yield AllMemberEventsLoadedState(events: getEvents);
+      } catch (e) {
+        yield MembersEventOperationFailedState();
       }
     }
   }

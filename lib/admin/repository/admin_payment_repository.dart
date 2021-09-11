@@ -12,6 +12,10 @@ class AdminPaymentRepository {
     return await paymentDataProvider.getAllPayments(memberId);
   }
 
+  Future<List<Payment>> getMemberPayments(int memberId, int edirId) async {
+    return await paymentDataProvider.getMemberPayments(memberId, edirId);
+  }
+
   Future<String> removePayment(int memberId) async {
     return await paymentDataProvider.removePayment(memberId);
   }

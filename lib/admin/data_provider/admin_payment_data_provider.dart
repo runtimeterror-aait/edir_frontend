@@ -53,6 +53,31 @@ class AdminPaymentDataProvider with Credentials {
     }
   }
 
+  Future<List<Payment>> getMemberPayments(int memberId, int edirId) async {
+    final t = await token();
+
+    final url = Uri.parse(
+        "http://127.0.0.1:8000/api/v1/paymentsuser/$memberId?edir_id=$edirId&skip=0&limit=10");
+    http.Response response = await http.get(
+      url,
+      headers: <String, String>{
+        'accept': 'application/json',
+        'Authorization': 'Bearer $t'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final payments = jsonDecode(response.body).cast<Map<String, dynamic>>();
+      final paymentsList =
+          payments.map<Payment>((json) => Payment.fromJson(json)).toList();
+      print(paymentsList);
+      return paymentsList;
+    } else {
+      print(response.statusCode);
+      throw Exception("Could not fetch payments");
+    }
+  }
+
   Future<String> addPayment(int memberId, Payment payment) async {
     Edir edir = await getEdir();
     final t = await token();
