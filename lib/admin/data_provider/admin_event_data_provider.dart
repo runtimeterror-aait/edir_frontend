@@ -28,9 +28,6 @@ class AdminEventDataProvider with Credentials {
       }),
     );
 
-    print(t);
-    print(response.body);
-
     if (response.statusCode == 200) {
       return "Created event successfully";
     } else {
@@ -61,10 +58,13 @@ class AdminEventDataProvider with Credentials {
 // Get all events
   Future<List<Event>> getAllEvents() async {
     Edir edir = await getEdir();
+    print(edir);
     final url = Uri.parse(
         "http://127.0.0.1:8000/api/v1/events/${edir.id}?skip=0&limit=20");
 
     final t = await token();
+    print("token");
+    print(t);
     final http.Response response = await http.get(
       url,
       headers: <String, String>{
@@ -81,10 +81,39 @@ class AdminEventDataProvider with Credentials {
       print(eventsList);
       return eventsList;
     } else {
+      print("response");
       throw Exception("Could not fetch events");
     }
   }
 
+  // Get member events
+  Future<List<Event>> getMemberEvents(int userId) async {
+    Edir edir = await getEdir();
+    final Uri url = Uri.parse("$_baseUrl/user/$userId");
+    final t = await token();
+
+    final http.Response response = await http.get(
+      url,
+      headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer $t',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final event = Event.fromJson(
+        jsonDecode(response.body),
+      );
+
+      final events = jsonDecode(response.body).cast<Map<String, dynamic>>();
+      final eventsList =
+          events.map<Event>((json) => Event.fromJson(json)).toList();
+      print(eventsList);
+      return eventsList;
+    } else {
+      throw Exception("Couldn't fetch event");
+    }
+  }
 // Get one Event
 
   Future<Event> getOneEvent(int eventId) async {
@@ -167,15 +196,16 @@ class AdminEventDataProvider with Credentials {
 
 void main() async {
   AdminEventDataProvider adminEventDataProvider = AdminEventDataProvider();
-  Event event = Event(
-    title: "Gathering",
-    description: "this is cleanings",
-    eventDate: DateTime.now(),
-    edirId: 2,
-  );
+  // Event event = Event(
+  //   title: "Gathering",
+  //   description: "this is cleanings",
+  //   eventDate: DateTime.now(),
+  //   edirId: 2,
+  // );
 
   // await adminEventDataProvider.createEvent(event);
 
-  final edir = await adminEventDataProvider.updateEvent(event, 39);
-  print(edir.description);
+  final edir = await adminEventDataProvider.getMemberEvents(3);
+
+  print(edir);
 }

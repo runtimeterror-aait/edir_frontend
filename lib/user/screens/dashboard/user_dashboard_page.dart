@@ -1,3 +1,4 @@
+import 'package:edir/admin/bloc/admin_payment_bloc.dart';
 import 'package:edir/admin/screens/admin_manage_edir/payment/admin_member_payment_page.dart';
 import 'package:edir/auth/bloc/auth_bloc.dart';
 import 'package:edir/auth/bloc/auth_event.dart';
@@ -46,10 +47,11 @@ class _UserDashboardPageState extends State<UserDashboardPage>
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.black),
-            textTheme: Theme.of(context).textTheme.apply(
-                  bodyColor: Colors.black,
-                ),
-            title: Text("Welcome USER"),
+            backgroundColor: Colors.amber,
+            title: Text(
+              "Welcome",
+              style: TextStyle(color: Colors.black),
+            ),
             leading: Image.asset(logoImageWithoutName),
             actions: <Widget>[
               TextButton(
@@ -93,39 +95,6 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _joinEdirDialog(context);
-                          },
-                          child: Text(
-                            "Join Edir",
-                            style: TextStyle(color: Colors.amber),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blueGrey),
-                            //
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "My Edirs",
-                            style: TextStyle(color: Colors.amber),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blueGrey),
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               ),
@@ -133,23 +102,24 @@ class _UserDashboardPageState extends State<UserDashboardPage>
                 height: 30,
               ),
               Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Scrollbar(
-                      isAlwaysShown: true,
-                      child: ListView(
-                        children: [
-                          // for (int i = 0; i < 10; i++)
-                          //   MemberPayment(
-                          //     moneyAmount: 100,
-                          //     paymentNote: "payment note",
-                          //     selectedDate: DateTime.now(),
-                          //     isAdmin: false,
-                          //   ),
-                        ],
-                      ),
-                    )),
-              ),
+                  child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: BlocBuilder<AdminPaymentBloc, AdminPaymentState>(
+                  builder: (context, state) {
+                    return ListView(
+                      children: [
+                        // for (int i = 0; i < 10; i++)
+                        //   MemberPayment(
+                        //     moneyAmount: 100,
+                        //     paymentNote: "payment note",
+                        //     selectedDate: DateTime.now(),
+                        //     isAdmin: false,
+                        //   ),
+                      ],
+                    );
+                  },
+                ),
+              )),
             ],
           ),
         ),
@@ -157,37 +127,37 @@ class _UserDashboardPageState extends State<UserDashboardPage>
     );
   }
 
-  void _joinEdirDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: Text('Join Edir'),
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                      isDense: true, labelText: "Edir username"),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Join"),
-                  style: raisedButtonStyleNormal,
-                )
-              ],
-            ),
-          )
-        ],
-        contentPadding: const EdgeInsets.all(10),
-      ),
-    );
-  }
+  // void _joinEdirDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => SimpleDialog(
+  //       title: Text('Join Edir'),
+  //       children: [
+  //         SizedBox(
+  //           height: 10,
+  //         ),
+  //         Form(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.end,
+  //             children: [
+  //               TextFormField(
+  //                 decoration: InputDecoration(
+  //                     isDense: true, labelText: "Edir username"),
+  //               ),
+  //               SizedBox(
+  //                 height: 15,
+  //               ),
+  //               ElevatedButton(
+  //                 onPressed: () {},
+  //                 child: Text("Join"),
+  //                 style: raisedButtonStyleNormal,
+  //               )
+  //             ],
+  //           ),
+  //         )
+  //       ],
+  //       contentPadding: const EdgeInsets.all(10),
+  //     ),
+  //   );
+  // }
 }

@@ -1,10 +1,22 @@
+import 'package:edir/admin/bloc/admin_event_bloc.dart';
+import 'package:edir/admin/bloc/admin_member_bloc.dart';
+import 'package:edir/auth/bloc/bloc.dart';
+import 'package:edir/auth/bloc/user_bloc.dart';
 import 'package:edir/core/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserDashboardEventsCard extends StatelessWidget with Styles {
+class UserDashboardEventsCard extends StatefulWidget with Styles {
   UserDashboardEventsCard({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<UserDashboardEventsCard> createState() =>
+      _UserDashboardEventsCardState();
+}
+
+class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
   List<Map> eventContainerInputs = [
     {
       "edirName": "Metebaber",
@@ -25,6 +37,19 @@ class UserDashboardEventsCard extends StatelessWidget with Styles {
           "We will have this event at this time.We will have this event at this time. We will have this event at this time.We will have this event at this time."
     }
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // BlocProvider.of<UserBloc>(context).add(GetUser());
+    // final authState = BlocProvider.of<UserBloc>(context).state;
+    // if (authState is LoggedInUser) {
+    // BlocProvider.of<AdminEventBloc>(context).add(GetAllMemberEventsEvent(authState.login));
+
+    // }
+    // super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -34,16 +59,44 @@ class UserDashboardEventsCard extends StatelessWidget with Styles {
         child: Scrollbar(
           child: Container(
             height: 300,
-            child: ListView(
-              controller: ScrollController(keepScrollOffset: false),
-              padding: const EdgeInsets.all(5),
-              children: [
-                for (Map eventContainer in eventContainerInputs)
-                  _EventsContainer(
-                      edirName: eventContainer['edirName'],
-                      eventTitle: eventContainer['eventTitle'],
-                      eventDescription: eventContainer['eventDescription'])
-              ],
+            child: BlocBuilder<AdminEventBloc, AdminEventState>(
+              builder: (context, state) {
+                print("state");
+                print(state);
+                if (state is LoadingMemberEventsState) {
+                  print("State");
+                  print(state);
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.amber,
+                    ),
+                  );
+                } else if (state is AllMemberEventsLoadedState) {
+                  print("State");
+                  print(state);
+                  if (state.events.length != 0) {
+                    Center(
+                      child: Text("No new event."),
+                    );
+                  }
+
+                  return ListView(
+                    controller: ScrollController(keepScrollOffset: false),
+                    padding: const EdgeInsets.all(5),
+                    children: [
+                      // for (Map eventContainer in eventContainerInputs)
+                      //   _EventsContainer(
+                      //       edirName: eventContainer['edirName'],
+                      //       eventTitle: eventContainer['eventTitle'],
+                      //       eventDescription:
+                      //           eventContainer['eventDescription'])
+                    ],
+                  );
+                }
+                return Center(
+                  child: Text("Couldn't fetch events"),
+                );
+              },
             ),
           ),
         ),

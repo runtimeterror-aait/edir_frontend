@@ -43,6 +43,7 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
 
           yield AllEventsLoadedState(events: events);
         } catch (e) {
+          print("here");
           print(e);
         }
       } catch (_) {
@@ -76,6 +77,16 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
             await eventRepository.deleteEvent(event.eventId);
         yield AllEventsLoadedState(events: events);
       } catch (_) {
+        yield EventOperationFailedState();
+      }
+    } else if (event is GetAllMemberEventsEvent) {
+      try {
+        yield LoadingMemberEventsState();
+        final List<Event> getEvents =
+            await eventRepository.getMemberEvents(event.userId);
+        yield AllMemberEventsLoadedState(events: getEvents);
+      } catch (e) {
+        print(e);
         yield EventOperationFailedState();
       }
     }

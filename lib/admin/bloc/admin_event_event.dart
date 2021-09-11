@@ -33,6 +33,14 @@ class GetAllEventsEvent extends AdminEventEvent {
   List<Object?> get props => [];
 }
 
+class GetAllMemberEventsEvent extends AdminEventEvent {
+  final int userId;
+  GetAllMemberEventsEvent({required this.userId});
+
+  @override
+  List<Object?> get props => [];
+}
+
 class UpdateEventEvent extends AdminEventEvent {
   final int eventId;
   final Event event;
