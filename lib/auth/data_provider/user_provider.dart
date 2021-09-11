@@ -97,21 +97,38 @@ class UserDataProvider with Credentials {
   }
 
   Future<AddMember> joinEdir(AddMember member) async {
-    var data = {
-      "user_id": member.userId,
-      "edir_username": member.edirUsername,
-      "status": "p"
-    };
+    var checkLogin = await _auth.isLoggedIn();
+    if (checkLogin) {
+      var loggedInUser = await loggedInUserData();
+      final t = await token();
+      final header = {
+        "Content-Type": "application/json",
+        'accept': 'application/json',
+        'Authorization': 'Bearer $t'
+      };
+      try {
+        final response = await http.post(
+          Uri.parse("http://localhost:8000/api/v1/members/"),
+          headers: header,
+          body: jsonEncode({
+            "user_id": loggedInUser.id.toString(),
+            "edir_username": member.edirUsername.toString(),
+            "status": "p"
+          }),
+        );
 
-    try {
-      var response = await _dio.put(_baseUrl, data: data);
-      if (response.statusCode == 200) {
-        return AddMember.fromJson(response.data);
-      } else {
-        return AddMember.fromJson(response.data);
+        print(response.body);
+        if (response.statusCode == 200) {
+          return AddMember.fromJson(jsonDecode(response.body));
+        } else {
+          return AddMember.fromJson(jsonDecode(response.body));
+        }
+      } catch (error, stacktrace) {
+        throw Exception("Exception occured: $error stackTrace: $stacktrace");
       }
-    } catch (error, stacktrace) {
-      throw Exception("Exception occured: $error stackTrace: $stacktrace");
+    } else {
+      print("not logged in from fetch user data");
+      throw Exception("Not logged in");
     }
   }
 
