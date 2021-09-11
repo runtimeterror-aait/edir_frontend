@@ -14,7 +14,9 @@ class AdminMembersDataProvider with Credentials {
     final urlEdir =
         Uri.parse("http://127.0.0.1:8000/v1/edirs/?skip=0&limit=10");
 
-    final responseEdir = await http.get(
+    http.Client client = http.Client();
+
+    final responseEdir = await client.get(
       urlEdir,
       headers: <String, String>{
         'accept': 'application/json',
