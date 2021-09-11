@@ -25,3 +25,7 @@ class ApproveMemberState extends AdminMemberState {
 
   ApproveMemberState({required this.member});
 }
+
+
+class MemberOperationFailedState extends AdminMemberState {
+}

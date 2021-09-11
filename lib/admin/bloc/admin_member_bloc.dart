@@ -21,10 +21,14 @@ class AdminMemberBloc extends Bloc<AdminMemberEvent, AdminMemberState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is GetAllMembersEvent) {
-      yield MemberLoadingState();
+      try{
+        yield MemberLoadingState();
 
-      List<Member> members = await membersRepository.getAllMembers();
-      yield AllMembersLoadedState(members: members);
+        List<Member> members = await membersRepository.getAllMembers();
+        yield AllMembersLoadedState(members: members);
+      } catch(_){
+        yield MemberOperationFailedState();
+      }
     } else if (event is ApproveMemberEvent) {
       yield MemberLoadingState();
 
