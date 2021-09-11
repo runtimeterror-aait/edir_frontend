@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:edir/auth/data_provider/user_provider.dart';
+import 'package:edir/auth/models/member.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:edir/core/credentials.dart';
 import 'package:edir/core/models/edir.dart';
@@ -90,7 +91,11 @@ class AdminEventDataProvider with Credentials {
 
   // Get member events
   Future<List<Event>> getMemberEvents() async {
-    final Uri url = Uri.parse("$_baseUrl/1");
+    UserDataProvider userDataProvider = UserDataProvider();
+    Member member = await userDataProvider.getJoinedEdir();
+
+    final Uri url = Uri.parse("$_baseUrl/${member.edirId}");
+
     final t = await token();
 
     final http.Response response = await http.get(
@@ -192,8 +197,8 @@ class AdminEventDataProvider with Credentials {
   }
 }
 
-void main() async {
-  AdminEventDataProvider adminEventDataProvider = AdminEventDataProvider();
+// void main() async {
+//   AdminEventDataProvider adminEventDataProvider = AdminEventDataProvider();
   // Event event = Event(
   //   title: "Gathering",
   //   description: "this is cleanings",
@@ -203,7 +208,7 @@ void main() async {
 
   // await adminEventDataProvider.createEvent(event);
 
-  final edir = await adminEventDataProvider.getMemberEvents();
+  // final edir = await adminEventDataProvider.getMemberEvents();
 
-  print(edir);
-}
+//   // print(edir);
+// }
