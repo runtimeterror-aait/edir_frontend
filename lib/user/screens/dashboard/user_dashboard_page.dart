@@ -33,8 +33,8 @@ class _UserDashboardPageState extends State<UserDashboardPage>
         listener: (context, state) {
           if (state is LoggedInUser) {
             var user = state.login;
-            if (user.role == "a") {
-              navService.pushNamed('/admin');
+            if (user.role == "u") {
+              navService.pushNamed('/user');
             }
           }
 

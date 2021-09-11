@@ -11,7 +11,7 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;
 
-  UserBloc(this.userRepository) : super(UserInitial());
+  UserBloc({required this.userRepository}) : super(UserInitial());
 
   @override
   Stream<UserState> mapEventToState(
