@@ -1,7 +1,6 @@
 import 'package:edir/admin/bloc/admin_event_bloc.dart';
 import 'package:edir/admin/bloc/admin_member_bloc.dart';
 import 'package:edir/auth/bloc/bloc.dart';
-import 'package:edir/auth/bloc/user_bloc.dart';
 import 'package:edir/core/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,13 +40,9 @@ class _UserDashboardEventsCardState extends State<UserDashboardEventsCard> {
   @override
   void initState() {
     // TODO: implement initState
-    // BlocProvider.of<UserBloc>(context).add(GetUser());
-    // final authState = BlocProvider.of<UserBloc>(context).state;
-    // if (authState is LoggedInUser) {
-    // BlocProvider.of<AdminEventBloc>(context).add(GetAllMemberEventsEvent(authState.login));
 
-    // }
-    // super.initState();
+    BlocProvider.of<AdminEventBloc>(context).add(GetAllMemberEventsEvent());
+    super.initState();
   }
 
   @override

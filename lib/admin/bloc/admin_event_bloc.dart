@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:edir/admin/data_provider/admin_event_data_provider.dart';
 import 'package:edir/admin/repository/admin_event_repository.dart';
+import 'package:edir/auth/bloc/bloc.dart';
 import 'package:edir/core/models/event.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:edir/auth/data_provider/user_provider.dart';
 
 part 'admin_event_event.dart';
 part 'admin_event_state.dart';
@@ -82,8 +84,12 @@ class AdminEventBloc extends Bloc<AdminEventEvent, AdminEventState> {
     } else if (event is GetAllMemberEventsEvent) {
       try {
         yield LoadingMemberEventsState();
+        final userId = await UserDataProvider()
+            .loggedInUserData()
+            .then((value) => value.id);
+
         final List<Event> getEvents =
-            await eventRepository.getMemberEvents(event.userId);
+            await eventRepository.getMemberEvents(userId!);
         yield AllMemberEventsLoadedState(events: getEvents);
       } catch (e) {
         print(e);
