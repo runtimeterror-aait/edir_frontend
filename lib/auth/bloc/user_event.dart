@@ -1,4 +1,7 @@
-part of 'user_bloc.dart';
+import 'package:edir/auth/models/addMember.dart';
+import 'package:edir/auth/models/member.dart';
+import 'package:edir/auth/models/user.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class UserEvent extends Equatable {
   const UserEvent();
@@ -18,14 +21,30 @@ class UpdateUser extends UserEvent {
   String toString() => 'User Updated Succesfully';
 }
 
-class LoggedInUserData extends UserState {
+class LoggedInUserData extends UserEvent {
   final User user;
   LoggedInUserData(this.user);
   @override
   List<Object> get props => [];
 }
 
-class DeleteUser extends UserState {
+class JoinEdir extends UserEvent {
+  final AddMember member;
+  JoinEdir(this.member);
+
+  @override
+  List<Object> get props => [member];
+}
+
+class JoinedEdir extends UserEvent {
+  final Member member;
+  JoinedEdir(this.member);
+
+  @override
+  List<Object> get props => [member];
+}
+
+class DeleteUser extends UserEvent {
   @override
   List<Object> get props => [];
 }

@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:edir/auth/models/member.dart';
 import 'package:edir/auth/models/user.dart';
 import 'package:edir/auth/repository/user_repository.dart';
+import 'package:edir/core/models/member.dart';
 import 'package:equatable/equatable.dart';
 
 part 'user_event.dart';

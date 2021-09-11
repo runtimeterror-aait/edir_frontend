@@ -1,4 +1,7 @@
-part of 'user_bloc.dart';
+import 'package:edir/auth/models/addMember.dart';
+import 'package:edir/auth/models/user.dart';
+import 'package:edir/core/models/member.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class UserState extends Equatable {
   const UserState();
@@ -39,4 +42,26 @@ class UserError extends UserState {
 
 class UserDeleted extends UserState {
   const UserDeleted();
+}
+
+class JoinEdirLoaded extends UserState {
+  final AddMember member;
+  const JoinEdirLoaded(this.member);
+  @override
+  List<Object> get props => [member];
+}
+
+class JoinEdirError extends UserState {
+  const JoinEdirError();
+}
+
+class JoinEdirFetchLoaded extends UserState {
+  final Member member;
+  const JoinEdirFetchLoaded(this.member);
+  @override
+  List<Object> get props => [member];
+}
+
+class JoinEdirFetchError extends UserState {
+  const JoinEdirFetchError();
 }

@@ -33,8 +33,8 @@ class _UserDashboardPageState extends State<UserDashboardPage>
         listener: (context, state) {
           if (state is LoggedInUser) {
             var user = state.login;
-            if (user.role == "u") {
-              navService.pushNamed('/user');
+            if (user.role == "a") {
+              navService.pushNamed('/admin');
             }
           }
 
@@ -49,7 +49,7 @@ class _UserDashboardPageState extends State<UserDashboardPage>
             textTheme: Theme.of(context).textTheme.apply(
                   bodyColor: Colors.black,
                 ),
-            title: Text("Welcome USER"),
+            title: Text("Welcome user"),
             leading: Image.asset(logoImageWithoutName),
             actions: <Widget>[
               TextButton(
