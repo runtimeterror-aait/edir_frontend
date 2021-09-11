@@ -3,7 +3,11 @@ import 'package:edir/admin/screens/admin_manage_edir/payment/admin_member_paymen
 import 'package:edir/auth/bloc/auth_bloc.dart';
 import 'package:edir/auth/bloc/auth_event.dart';
 import 'package:edir/auth/bloc/auth_state.dart';
+import 'package:edir/auth/bloc/user_bloc.dart';
+import 'package:edir/auth/bloc/user_state.dart';
+import 'package:edir/auth/bloc/user_event.dart';
 import 'package:edir/auth/repository/auth_repository.dart';
+import 'package:edir/auth/repository/user_repository.dart';
 import 'package:edir/core/appbar.dart';
 import 'package:edir/core/signin_and_register_form.dart';
 import 'package:edir/core/styles.dart';
@@ -25,6 +29,7 @@ final AuthRepository authRepository = AuthRepository();
 
 class _UserDashboardPageState extends State<UserDashboardPage>
     with SignInAndRegisterForm, Styles {
+  final UserRepository userRepository = UserRepository();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

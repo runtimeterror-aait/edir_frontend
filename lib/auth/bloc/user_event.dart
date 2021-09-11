@@ -37,11 +37,8 @@ class JoinEdir extends UserEvent {
 }
 
 class JoinedEdir extends UserEvent {
-  final Member member;
-  JoinedEdir(this.member);
-
   @override
-  List<Object> get props => [member];
+  List<Object> get props => [];
 }
 
 class DeleteUser extends UserEvent {
